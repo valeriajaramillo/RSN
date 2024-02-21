@@ -1,14 +1,14 @@
 # RSN
 
-[Link to download](https://github.com/valeriajaramillo/RSN/)
+[Code from](https://github.com/valeriajaramillo/RSN/)
 
 required toolboxes: 
 
-- eeglab
-- fieldtrip
+- [eeglab v2021.1](https://sccn.ucsd.edu/eeglab/download.php)
+- [fieldtrip revision ebc13229d](https://www.fieldtriptoolbox.org/) 
 
 
-preprocessing
+# preprocessing
 
 sleep: preprocessing scripts for sleep data, run in order A-G
 
