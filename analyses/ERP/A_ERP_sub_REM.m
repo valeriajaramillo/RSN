@@ -5,7 +5,6 @@ addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
 addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
 
 addpath /user/HS301/m17462/matlab/Henry/useful_functions
-addpath /user/HS301/m17462/matlab/colorGradient
 
 erpfolder = '/vol/research/nemo/datasets/RSN/data/analysis/erp_allsub/';
 
@@ -18,7 +17,7 @@ dt = 1;
 fs = 500;
 
 %%
-for s = 7:length(sub_Folderpath)
+for s = 1:length(sub_Folderpath)
     
 display(s); 
 

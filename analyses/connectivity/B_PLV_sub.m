@@ -21,7 +21,7 @@ on_block = 7:12;
 off_block = 1:6;
 
 
-for s = 1  %:length(sub_Folderpath)
+for s = 1:length(sub_Folderpath)
 
     
     phase_file = dir([Folderpath_phase,sub_Folderpath(s).name,'*_phase_connectivity.mat']);

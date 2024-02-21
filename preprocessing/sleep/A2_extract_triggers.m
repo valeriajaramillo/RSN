@@ -4,6 +4,8 @@ close all;
 addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
 addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
 
+addpath /mnt/beegfs/users/psychology01/useful_functions
+
 %% Load and filter hdEEG data
 
 Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_024/';

@@ -2,9 +2,6 @@ clear all;
 close all;
 
 addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-% addpath(genpath('/user/HS301/m17462/matlab/sprint'));
-% addpath(genpath('/user/HS301/m17462/matlab/brainstorm3-master'));
-
 addpath(genpath('/user/HS301/m17462/matlab/eBOSC'));
 
 addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
@@ -13,9 +10,7 @@ Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
 sub_Folderpath = dir([Folderpath,'RSN*']);
 
 waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/';
-% waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/30_45_Hz/';
 
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/figures/';
 Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/';
 
 load('/vol/research/nemo/datasets/RSN/data/analysis/ISI_allsub/ISI_echt_psd_allsub_14-Mar-2023.mat')
@@ -44,7 +39,6 @@ load([Folderpath,sub_Folderpath(s).name,filesep,goodREM_file(1).name]);
 % load([Folderpath,sub_Folderpath(s).name,filesep,nm_good_file(1).name]); 
 
 waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves.mat']);
-% waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves_30_45_Hz.mat']);
 load([waves_folder,waves_file(1).name])
 
 %%

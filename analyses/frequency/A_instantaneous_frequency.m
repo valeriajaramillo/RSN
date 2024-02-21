@@ -21,7 +21,7 @@ cluster.NumWorkers = 1;
 % cluster.NumThreads = 4;
 cluster.JobStorageLocation = '/users/psychology01/Valeria/jobfiles'; % wdir: directory where job file is put
 
-for s = 17:length(sub_Folderpath)
+for s = 1:length(sub_Folderpath)
     
     batch(cluster,@instantaneous_frequency,0,{Folderpath,sub_Folderpath,s},'AutoAttachFiles', false, ...
     'AutoAddClientPath', true, ...

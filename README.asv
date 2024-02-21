@@ -86,9 +86,7 @@ C_cluster_analysis_SnPM_power_theta: calculate lme for each electrode with clust
 A_resultant_allsub_allch: calculate resultant and mean phase for each participant, condition and channel and save for all participants
 
 - sleep_parameters: calculate sleep stage and phasic/tonic percentages
-A_Sleep_parameters: calculate classical sleep parameters
-B_phasic_tonic_conditions: calculate percentage of phasic and tonic REM sleep for each participant and for ON and OFF windows for each condition, save for all participants
-
+A_Sleep_parameters: calculate sl
 
 
 
