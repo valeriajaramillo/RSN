@@ -1,11 +1,5 @@
 close all
-clear 
-clc
-
-% addpath('/users/psychology01/software/automaticanalysis/');
-
-% clear;
-% aa_ver5
+clear all
 
 addpath(genpath('/user/HS301/m17462/matlab/eeglab/'));
 
@@ -13,40 +7,15 @@ addpath(genpath('/user/HS301/m17462/matlab/eeglab/'));
 
 Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_006/ICA2/';
 Folderpath_dir = dir([Folderpath,'*ICA.set']);
-% Folderpath_dir = dir([Folderpath,'*ICs_removed.set']);
 filename = Folderpath_dir(1).name;
 
 Folderpath_auxch = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_006/';
 Folderpath_auxch_dir = dir([Folderpath_auxch,'*sleep*_auxch_all.set']);
 
-%%
-
-% cd('/mnt/beegfs/users/psychology01/Henry')
-% aap = aarecipe('aap_tasklist_meeg.xml');
-% SPM = aas_inittoolbox(aap,'spm');
-% SPM.load;
-
-% EL = aas_inittoolbox(aap,'eeglab');
-% EL.load;
-
-
-%% 
-
-% cond_name = {'sham';'sham2';'sham3';'stim';'stim2';'stim3'};
-
-%%
-
-close all
-
-% sub = 12;
-% cond = 1;
-
-
 %% View IC's
 
 [ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
 EEG = pop_loadset('filename',[filename],'filepath',[Folderpath]);
-% EEG = pop_loadset('filename',['IV_',dataName,'ICA.set'],'filepath',[Folderpath,filesep,dataName]);
 
 [ALLEEG, EEG, CURRENTSET] = eeg_store( ALLEEG, EEG, 0 );
 EEG = eeg_checkset( EEG );
@@ -56,13 +25,11 @@ pop_viewprops(EEG, 0, 1:30, {}, {}, 0);%,1,[],1:3);%,{},{},0,{},{});
 
 EEG.icaact = (EEG.icaweights*EEG.icasphere)*EEG.data(EEG.icachansind,:); % get component data
 
-% EEG = pop_saveset(EEG, 'filename', [filename(1:end-4),'_autoartcorr_reref_components'], 'filepath', Folderpath);
-
 %%
 
-EEG.manualrejcomp = [11 18 17 21 29]; % define eye movement components
+EEG.manualrejcomp = [11 18 17 21 29]; % define components that you want to reject (eye movements, cardiac artefacts, etc.)
 
-%% Plot eye movements and eye components
+%% Plot eye movements and eye components (should co-occur)
 
 eeg_aux = pop_loadset('filename', [Folderpath_auxch_dir(1).name], 'filepath', Folderpath_auxch);
 
@@ -81,8 +48,6 @@ c2 = EEG.icaact(EEG.manualrejcomp(2),:);
 
 lEOG = eeg_aux.data(3,:);
 rEOG = eeg_aux.data(4,:);
-% lEOG = eeg_aux.data(4,:);
-% rEOG = eeg_aux.data(5,:);
 
 epochl = 10;
 
@@ -110,10 +75,10 @@ end
 
     %% Reject IC's
 
-% close all
 EEG = eeg_checkset(EEG);
 EEG = pop_subcomp(EEG, EEG.manualrejcomp, 1); % define manually which components to reject
 
+pop_newset(ALLEEG, EEG, 1,'savenew',[Folderpath,filename(1:end-4),'_manual_ICA'],'gui','off'); 
+
 % pop_eegplot(EEG);
 
-pop_newset(ALLEEG, EEG, 1,'savenew',[Folderpath,filename(1:end-4),'_manual_ICA'],'gui','off'); 

@@ -1,13 +1,9 @@
-%% Example of batch code to preprocess multiple subjects
- 
-% Step 1: Change the option to use double precision.
-
 clear all;
 close all;
 
 %% Define folders
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_013/'; % with \ at the end
+Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_013/';
 
 %%
 Folderpath_dir = dir([Folderpath,'*_sleep_fil.set']);
@@ -19,12 +15,7 @@ REM_file_dir = dir([Folderpath,'*scoredREMlabels_2023*']);
         
 %% add relevant toolboxes and functions to path
 
-% addpath /users/hh00720/parallel_scratch/
-% addpath /users/psychology01/henry/
-% addpath('/users/psychology01/software/automaticanalysis/');
-
 addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/csc-eeg-tools-develop'));
 
 %% Load filtered data, and scoring data
 
@@ -47,12 +38,10 @@ end
 
 hypno2 = hypno(1:nepochs);
 
-% rem_ndx_test = find(hypno2 == 'R');
-% setdiff(rem_ndx_test,REM_index)
 
 load([Folderpath,REM_file_dir(1).name]);
 
-%% find good rem windows
+%% find good rem windows and phasic and tonic segments
 
 windowl = 1;
 
@@ -164,8 +153,8 @@ badchans_labels = badchans_names(badchans_ndx);
     EEG.chanlocs(76).labels = 'I1';
     EEG.chanlocs(83).labels = 'I2';
     
+    % load standard channel locations, this can be found in eeglab/plugins/dipfit4.3/standard_BEM/elec/standard_1005.elc'
     EEG = pop_chanedit(EEG, 'lookup','/user/HS301/m17462/matlab/Scripts/RSN/preprocessing/sleep/standard_1005.elc','eval','chans = pop_chancenter( chans, [],[]);');
-%     eeg = pop_chanedit(eeg, 'lookup','/users/psychology01/software/eeglab/plugins/dipfit4.3/standard_BEM/elec/standard_1005.elc','eval','chans = pop_chancenter( chans, [],[]);');
 
     originaleeg = EEG;
     
@@ -181,59 +170,8 @@ badchans_labels = badchans_names(badchans_ndx);
      originaleeg2 = EEG;
      
      
-     % Step 9: Re-reference the data to average, put Cz back, check Cz
-%   don't re-reference before running the ICA so that 'clean' data can be
-%   re-referenced to any ref
-%     EEG.nbchan = EEG.nbchan+1;
-%     EEG.data(end+1,:) = zeros(1, EEG.pnts);
-%     EEG.chanlocs(1,EEG.nbchan).labels = 'Cz';
-%     EEG = pop_chanedit(EEG, 'lookup','/user/HS301/m17462/matlab/Scripts/RSN/standard_1005.elc','eval','chans = pop_chancenter( chans, [],[]);');
-%     EEG = pop_reref(EEG, []); % average referencing
-%     EEG2 = EEG;
-%     EEG2.data = EEG2.data(:,rem_goodsamp);
-%     pop_eegplot(EEG2, 1, 0, 1); % check Cz, if bad, adapt excel
-%     badchans_channels = xlsread([Folderpath,badchans_dir(1).name],'Sheet1','A2:A129');
-%     [badchans_names badchans_names] = xlsread([Folderpath,badchans_dir(1).name],'Sheet1','B2:B129');
-%     badchans_mask = xlsread([Folderpath,badchans_dir(1).name],'Sheet1','C2:C129');
-%     badchans_ndx = find(badchans_mask == 1);
-%     badchans_labels = badchans_names(badchans_ndx);
-% %     interpolate Cz
-%     if badchans_mask(128)==1
-%     EEG = pop_interp(EEG, 128, 'spherical');  
-%     EEG2 = EEG;
-%     EEG2.data = EEG2.data(:,rem_goodsamp);
-%     pop_eegplot(EEG2); % check if Cz is good now
-%     clear EEG2
-%     end
-
     %% Check if there are some remaining artefacts
      
-%     EEG2 = EEG;
-%     EEG2.data = EEG2.data(:,rem_goodsamp);
-%     EEG2.times = EEG2.times(:,rem_goodsamp);
-%     EEG2.pnts = length(EEG2.times);
-%     EEG2.event = [];
-%     EEG2.urevent = [];
-%     EEG2 = csc_eeg_plotter(EEG2);
-%     event_marker = EEG2.csc_event_data;
-%     event_type = cell2mat(event_marker(:,3));
-%     event_start = cell2mat(event_marker(:,2));
-%     art_startndx = find(event_type == 1);
-%     art_endndx = find(event_type == 2);
-%     art_start = floor(event_start(art_startndx)*fs); % artefact start in samples
-%     art_end = floor(event_start(art_endndx)*fs); % artefact end in samples
-%     
-%     badsamps_all = [];
-%     for a = 1:length(art_start)
-%         
-%         badsamps = art_start(a):1:art_end(a);
-%         figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-%         plot(EEG2.data(1,badsamps(1)-15*fs:badsamps(end)+15*fs));
-%         ylim([-200 200]);
-%         badsamps_all = vertcat(badsamps_all,badsamps');
-%         
-%     end
- 
 EEG2 = EEG;
 EEG2.data = EEG2.data(:,rem_goodsamp);
 EEG2.times = EEG2.times(:,rem_goodsamp);
@@ -242,7 +180,7 @@ EEG2.xmax = 1/EEG.srate * EEG2.pnts;
 EEG2.event = [];
 EEG2.urevent = [];
 
-pop_eegplot(EEG2,1,1,1); 
+pop_eegplot(EEG2,1,1,1); % mark artefacts in eeglab interface
 
 %% find samples of remaining artefacts
 
@@ -272,6 +210,7 @@ art_duration2 = 0;
         
         ch = 2;
         badsamps = art_start2:1:art_end2;
+%         to check if badsamps really are the artefacts you marked
 %         figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 %         plot(EEG2.data(ch,badsamps(1)-15*fs:badsamps(end)+15*fs));
 %         hold on
@@ -294,9 +233,6 @@ clear EEG2
     %% Extract good REM data
         
     EEG = originaleeg2;
-    % save and remove aux channels
-%     EEG_aux = pop_select(EEG,'channel',{'Echt' 'EMG' 'lEOG' 'rEOG' 'ECG'}); 
-%     EEG_aux = pop_saveset(EEG_aux, 'filename', [dataName,'_auxch'], 'filepath', Folderpath);
     EEG = pop_select(EEG,'nochannel',{'Echt' 'EMG' 'lEOG' 'rEOG' 'ECG'});
     % extract good REM data
     rem_goodsamp2 = rem_goodsamp;
@@ -305,19 +241,13 @@ clear EEG2
     EEG.times = EEG.times(:,rem_goodsamp2);
     EEG.event = [];
     EEG.urevent = [];
-%     EEG = csc_eeg_plotter(EEG);
     pop_eegplot(EEG,1,1,1); 
     
-    %%
+    %% save food REM data
   
     EEG = pop_saveset(EEG, 'filename', [dataName,'_czref_goodREM'], 'filepath', Folderpath);
 
-%     EEG.data = EEG.data(:,rem_goodsamp);
-%     EEG.times = EEG.times(rem_goodsamp);
-%     EEG = pop_saveset(EEG, 'filename', [dataName,'_avref_goodREM'], 'filepath', Folderpath);
-
-  
-    %%
+    %% save good REM samples (rem_goodsamp2), good phasic (phasic_goodsamp2) and good tonic (tonic_goodsamp2) samples info
     
        phasic_samp = [];
     

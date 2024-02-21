@@ -1,8 +1,10 @@
 clear all;
 close all;
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_024/';
 addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
+
+
+Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_024/';
 
 czref_file = dir([Folderpath,'*sleep*czref.set']);
 manual_ICA_file = dir([Folderpath,'ICA2/','*czref_goodREM_ICA_manual_ICA.set']);
@@ -35,59 +37,4 @@ originaleeg = EEG;
 EEG = pop_reref(EEG, []); % average referencing
 EEG = pop_saveset(EEG, 'filename', [czref_file(1).name(1:end-4),'_mICA_avref'], 'filepath', Folderpath);
 clear EEG
-
-%% Laplacian referencing
-
-EEG = originaleeg;
-
-% Scalp Current Density - create electrode positions
-
-[~,ftpath] = ft_version; 
-elec = ft_read_sens(strcat(ftpath, '/template/electrode/standard_1005.elc' )); 
-
-clear elec2
-
-chans = {EEG.chanlocs.labels};
-chans{76} = 'I1';
-chans{83} = 'I2';
-save('chans.mat','chans');
-
-    for i = 1:128
-
-        %scatter(layout.pos(i,1),layout.pos(i,2))
-
-        clear indx
-
-        indx = strcmp(chans(i),elec.label);
-
-        %text(layout.pos(indx,1),layout.pos(indx,2),chans(i))
-
-        elec2.chanpos(i,:) = elec.chanpos(indx,:);
-        elec2.elecpos(i,:) = elec.elecpos(indx,:);
-        elec2.label(i,:) = elec.label(indx,:);
-        
-    end
-
-elec2.chantype = elec.chantype;
-elec2.unit = elec.unit;
-elec2.chanunit = elec.chanunit;
-elec2.type = elec.type;
-
-% Re-reference
-
-data = eeglab2fieldtrip(EEG, 'raw', 'none' );      
-data.elec = elec2;
-data.label = elec2.label;
-
-cfg = [];
-cfg.method       = 'spline';    
- 
-cfg.elec = elec2;
-data2 = ft_scalpcurrentdensity(cfg, data);            
-EEG_reref = data2.trial{1};  
-
-EEG.data = EEG_reref;
-EEG = pop_saveset(EEG, 'filename', [czref_file(1).name(1:end-4),'_mICA_lapref'], 'filepath', Folderpath);
-
-
 

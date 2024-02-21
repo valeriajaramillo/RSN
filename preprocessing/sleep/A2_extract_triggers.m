@@ -2,9 +2,7 @@ clear all;
 close all;
 
 addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('//user/HS301/m17462/matlab/Scripts/RSN'));
-
-addpath /mnt/beegfs/users/psychology01/useful_functions
+addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
 
 %% Load and filter hdEEG data
 
@@ -190,9 +188,7 @@ for con = 1:length(conditions)
         
     ECHT_trig = ECHT_trigsamp(find(ECHT_trigsamp > startsamp(r) & ECHT_trigsamp < endsamp(r)));
     StimTrak_trig = StimTrak_trigsamp(find(StimTrak_trigsamp > startsamp(r) & StimTrak_trigsamp < endsamp(r)));  
-    
-    % To do: align Stimtrak and ECHT triggers
-    
+        
     OFF_diff = find(diff(ECHT_trig)>= 3000);
     OFF_start_ndx = OFF_diff;
     OFF_end_ndx = OFF_diff + 1;

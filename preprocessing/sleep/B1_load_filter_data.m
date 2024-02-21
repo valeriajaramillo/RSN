@@ -32,6 +32,7 @@ data = ft_preprocessing(cfg,data);
 EEG.data = data.trial{1};
 data = eeglab2fieldtrip(EEG, 'raw', 'none');       
 
+% high-pass filter and band-stop filter to remove line noise
 cfg = [];
 cfg.hpfilter = 'yes';
 cfg.hpfreq = 0.7;
