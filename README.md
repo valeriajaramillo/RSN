@@ -21,6 +21,8 @@ Required toolboxes/functions to run the scripts:
 - [echt](https://www.nature.com/articles/s41467-020-20581-7#MOESM3)
 - [DataViz](https://uk.mathworks.com/matlabcentral/fileexchange/74851-daboxplot)
 
+---
+
 ## Preprocessing
 
 ### sleep
@@ -58,11 +60,21 @@ Required toolboxes/functions to run the scripts:
 
 **G_goodtrigs**: save triggers that occurred during a 'good' wake sample in _nm_good.mat  
 
+---
 
 ## Analyses
+make analyses, run after preprocessing  
 
+### ERP
+perform AEP analyses for REM and wake data, run in order A-B
 
-### connectivity: perform connectivity analyses, run in order A-D
+**A_ERP_sub_REM**: extract AEP REM data for each participant  
+**A_ERP_sub_wake**: extract AEP wake data for each participant  
+**B_ERP_allsub_REM**: save AEP REM data for all participants  
+**B_ERP_allsub_wake**: save AEP wake data for all participants 
+
+### connectivity
+perform connectivity analyses, run in order A-D
 
 **A_phase_connectivity**: calculate the phase using Hilbert transform for trial data  
 **B_PLV_sub**: calculate PLV and PLI for all channel pairs for each participant  
@@ -70,47 +82,51 @@ Required toolboxes/functions to run the scripts:
 **D_cluster_analysis_SnPM_connectivity**: calculate lme for each electrode with cluster correction for alpha CLAS  
 **D_cluster_analysis_SnPM_connectivity_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
 
-### eBOSC: detect oscillations to determine individual peak frequency, run in order A-B
+### eBOSC
+calculate ISI's to deterime stimulation frequency, detect oscillations to determine individual peak frequency, run in order A-C
 
-**A_eBOSC**: detect oscillations for each epoch  
-**B_eBOSC**: extract oscillations with at least 3 cycles and 300 ms duration, plot histogram and detect peak  
+**A_ISI_allsub_allch**: calculate ISI's and save for all participants
+**B_eBOSC**: detect oscillations for each epoch  
+**C_eBOSC**: extract oscillations with at least 3 cycles and 300 ms duration, plot histogram and detect peak 
 
-### ERP: perform AEP analyses for REM and wake data, run in order A-B**
-
-**A_ERP_sub_REM**: extract AEP REM data for each participant  
-**A_ERP_sub_wake**: extract AEP wake data for each participant  
-**B_ERP_allsub_REM**: save AEP REM data for all participants  
-**B_ERP_allsub_wake**: save AEP wake data for all participants  
-
-### frequency: perform frequency analyses, run in order A-C
+### frequency
+perform frequency analyses, run in order A-C
 
 **A_instantaneous_frequency**: calculate instantaneous frequency for REM and wake data for each participant  
 **B_freq_allsub**: calculate frequency for ON and OFF windows and save for all participants  
 **C_cluster_analysis_SnPM_frequency**:  calculate lme for each electrode with cluster correction for alpha CLAS  
 **C_cluster_analysis_SnPM_frequency_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
 
-### ISI: calculate inter-stimulus-intervals (ISI)
+### ntrials
+calculate number of trials, run in order A-B
 
-**A_ISI_allsub_allch**: calculate ISI's and save for all participants  
+**A_ntrials_ERPs**
+**B_ntrials_nm**
 
-### psd: perform power analyses
+### psd
+perform power analyses, run in order A-C
 
-**A1_Power_ON_OFF_goodREM**: perform power and phase analysis for all trials of each condition and for each participant  
+**A_Power_ON_OFF_goodREM**: perform power analysis for all trials of each condition and for each participant  
 **B_Power_ON_OFF_allsub_allch**: average across all good trials, all good phasic and all good tonic trials and save for all participants  
 **C_cluster_analysis_SnPM_power**: calculate lme for each electrode with cluster correction for alpha CLAS  
-**C_cluster_analysis_SnPM_power_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
+**C_cluster_analysis_SnPM_power_theta**: calculate lme for each electrode with cluster correction for theta CLAS
 
-### resultant: perform phase-locking accuracy analyses
+### resultant
+perform phase-locking accuracy analyses, run in order A-B
 
-**A_resultant_allsub_allch**: calculate resultant and mean phase for each participant, condition and channel and save for all participants  
+**A_Phase_sub_allch**: perform phase analysis for all triggers of each condition and for each participant  
+**B_resultant_allsub_allch**: calculate resultant and mean phase for each participant, condition and channel and save for all participants  
 
-### sleep_parameters: calculate sleep stage and phasic/tonic percentages
+### sleep_parameters
+calculate sleep stage and phasic/tonic percentages, run in order A-B
 
-**A_Table1_Sleep_parameters**: calculate classical sleep parameters  
-**B_Table1_phasic_tonic_conditions**: calculate percentage of phasic and tonic REM sleep for each participant and for ON and OFF windows for each condition, save for all participants  
+**A_Table1_Sleep_parameters**: reads in .txt file containing sleep scoring labels, calculate classical sleep parameters
+**B_Table1_phasic_tonic_conditions**: calculate percentage of phasic and tonic REM sleep for each participant and for ON and OFF windows for each condition, save for all participants
 
 
+---
 ## Figures
+make figures, run after analyses
 
 **Figure1C_phasic_tonic_epoch**: plot example 10-s data for phasic and tonic REM sleep  
 **Figure1D_Suppl_Figure1_ntrials_across_night_erps**: make boxplots for number of AEP and CLAS trials (all and phasic)  
