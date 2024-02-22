@@ -20,7 +20,8 @@ Required toolboxes to run the scripts:
 
 ## Preprocessing
 
-**-sleep: preprocessing scripts for sleep data, run in order A-G**
+**sleep: preprocessing scripts for sleep data, run in order A-G**
+--------
 
 **A1_writeedf_for_scoring**: write .edf file that is used for sleep scoring (re-referencing 8 EEG channels used for sleep scoring to mastoids), you need to export .eeg file as .edf file using BrainVisionRecorder before running this script (.edf file is needed)
 
@@ -39,7 +40,8 @@ Required toolboxes to run the scripts:
 **G_goodtrigs**: save triggers that occurred during a 'good' REM sample in _nm_good.mat
 
 
-**-wake: preprocessing scripts for wake data, run in order A-G**
+**wake: preprocessing scripts for wake data, run in order A-G**
+--------
 
 1. A_load_filter_data_wake: load and filter wake EEG data from .eeg file (raw data, provided), save as _fil.fdt and .set file
 
