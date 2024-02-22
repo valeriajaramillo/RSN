@@ -104,7 +104,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
 %    trigs = nm.trigs_StimTrak_ERP;
 
-   %% Make plot for tonic epoch
+   %% Tonic - Extract samples and waves of epoch
    
    epoch = 21;
    plot_start = 2;
@@ -161,7 +161,8 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    colors = linspecer(4);
      
 
-%%%%%%%%% Tonic - EEG data without additional filtering (just preprocessing filters) %%%%%%%%%
+   
+%%  Tonic - plot EEG data without additional filtering (just preprocessing filters)
 
    fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 
@@ -211,7 +212,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
 
    
-%%%%%%%%% Tonic - EEG data filtered in alpha range %%%%%%%%%
+%% Tonic - EEG data filtered in alpha range
 
    nexttile(3)
    plot(samp_ep,data_alphafilt(samp_ep),'k');
@@ -265,7 +266,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
 
    
-%%%%%%%%% Tonic - EEG data filtered in theta range %%%%%%%%%
+%% Tonic - EEG data filtered in theta range
    
    nexttile(5)
    plot(samp_ep,data_thetafilt(samp_ep),'k');
@@ -320,8 +321,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
   
     
-%%%%%%%%% Tonic - EOG left %%%%%%%%%
-
+%% Tonic - EEG data filtered in theta range
     nexttile(7)
     plot(samp_ep,lEOG(samp_ep),'Color',[1 0 0])
     hold on
@@ -343,8 +343,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     
     
     
-%%%%%%%%% Tonic - EOG right %%%%%%%%%
-
+%   EOG right Tonic
     nexttile(9)
     plot(samp_ep,rEOG(samp_ep),'Color',[1 0 0])
     hold on
@@ -366,8 +365,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
   
     
     
-%%%%%%%%% Tonic - EMG %%%%%%%%%
-
+%   EMG Tonic
     nexttile(11)
     plot(samp_ep,EMG_filt(samp_ep),'Color','b')
     hold on
@@ -393,8 +391,11 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     tileplot.Padding = 'compact';
     
     
+    % Phasic
+  
 
-   %% Make plot for phasic epoch
+   % example plot with RSN_001 and epoch 5
+%    for epoch = 1:10 % 42,46 muscle twitches, 52 has very clear alpha
 
    epoch = 123; %5 124 195 206 215 252 257
    plot_start = 9;
@@ -452,13 +453,35 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    colors = linspecer(4);
 
    
-%%%%%%%%% Phasic - EEG data without additional filtering (just preprocessing filters) %%%%%%%%%
+   % EEG Phasic
 
 %    fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 
 %    tileplot = tiledlayout(6,2);
    nexttile(2)
    plot(samp_ep,data(samp_ep),'k');
+   hold on
+%    for p = 1:length(phasic_start)
+%    area([phasic_start(p) phasic_end(p)],[50 50],-50,'FaceColor',[0.3 0.3 0.3],'FaceAlpha',.1,'EdgeColor','none','LineStyle','none')
+%    end
+%    for p = 1:length(phasic_samp_ep)
+%    plot(phasic_samp_ep(p),data(ch,phasic_samp_ep(p)),'o','MarkerFaceColor','r','MarkerEdgeColor','r','MarkerSize',4);
+%    hold on
+%    end
+%    hold on
+%    if ~isempty(trigs_samp_ep)
+%    plot(trigs_samp_ep,-25,'o','MarkerFaceColor',[0.8500 0.3250 0.0980],'MarkerEdgeColor',[0.8500 0.3250 0.0980],'MarkerSize',4); % orange
+%    end
+%    for t = 1:length(trigs_samp_ep)
+% %        con = con_samp_ep(t)
+%        if con < 5
+%        plot(trigs_samp_ep(t),data(ch,trigs_samp_ep(t)),'o','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',4);
+% %        plot(trigs_samp_ep(t),-25,'o','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',4);
+%        else
+%        plot(trigs_samp_ep(t),data(ch,trigs_samp_ep(t)),'o','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',4);
+% %        plot(trigs_samp_ep(t),-25,'o','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',4);
+%        end
+%    end
    hold on
    plot(bad_samps,data(bad_samps),'Color',[0.7 0.7 0.7]) %orange
    hold on
@@ -502,8 +525,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
 
    
-%%%%%%%%% Phasic - EEG data filtered in alpha range %%%%%%%%%
-
+% EEG alphafilt Phasic
    nexttile(4)
    plot(samp_ep,data_alphafilt(samp_ep),'k');
    hold on
@@ -556,7 +578,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
 
    
-%%%%%%%%% Phasic - EEG data filtered in theta range %%%%%%%%%
+   %    EEG thetafilt Phasic
    
    nexttile(6)
    plot(samp_ep,data_thetafilt(samp_ep),'k');
@@ -611,8 +633,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
    
   
     
-%%%%%%%%% Phasic - EOG left %%%%%%%%%
-
+%   EOG left Phasic
     nexttile(8)
     plot(samp_ep,lEOG(samp_ep),'Color',[1 0 0])
     hold on
@@ -634,8 +655,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     
     
     
-%%%%%%%%% Phasic - EOG right %%%%%%%%%
-
+%   EOG right Phasic
     nexttile(10)
 %     plot(samp_ep,rEOG(samp_ep),'Color',[0.6350 0.0780 0.1840])
     plot(samp_ep,rEOG(samp_ep),'Color',[1 0 0])
@@ -658,8 +678,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
   
     
     
-%%%%%%%%% Phasic - EMG %%%%%%%%%
-
+%   EMG Phasic
     nexttile(12)
     plot(samp_ep,EMG_filt(samp_ep),'Color','b')
     hold on
@@ -681,12 +700,24 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     xlim([samp_ep(1) samp_ep(end)])
   
 
-    tileplot.TileSpacing = 'compact';
+    tileplot.TileSpacing = 'none';
     tileplot.Padding = 'compact';
     
-    saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch.svg']);
     
-
+    Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
+    saveas(fig,[Savefolder,'Figure1_phasic_tonic_EEG.svg']);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 %%%%%%%%%%%%%%%%%%%%% With axis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
 
@@ -1311,9 +1342,10 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     xlim([samp_ep(1) samp_ep(end)])
   
 
-    tileplot.TileSpacing = 'compact';
+    tileplot.TileSpacing = 'none';
     tileplot.Padding = 'compact';
     
     
-    saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch_axes.svg']);
+    
+    saveas(fig,[Savefolder,'Figure1_phasic_tonic_EEG_axes.svg']);
 
