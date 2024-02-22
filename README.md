@@ -7,7 +7,7 @@ This repository contains scripts for the paper:
 
 
 Raw data and data to create the figures can be found here:
-[![DOI](10.5281/zenodo.10663994)
+[Zenodo DOI](10.5281/zenodo.10663994)
 
 
 Required toolboxes to run the scripts: 
