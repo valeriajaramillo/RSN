@@ -1,19 +1,53 @@
 clear all;
 close all;
 
-addpath(genpath('S:\projects\RSN\matlab\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
+Folderpath = 'S:\datasets\RSN\data\hdEEG\';
+sub_Folderpath = dir([Folderpath,'RSN*']);
 
-load('S:\datasets\RSN\data\analysis\ntrials\ERP_ntrials_allsub.mat')
-load('S:\datasets\RSN\data\analysis\ntrials\nm_ntrials_allsub.mat')
+nbins = 3;
+fs = 500;
 
 incl_sub = setdiff(1:19,12);
 
-bins = {'All' '1st third' '2nd third' '3rd third'};
+Savefolder = 'S:\datasets\RSN\data\analysis\ntrials\';
 
-% Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
-%%
+%% Load erp data
+
+for s = 1:length(sub_Folderpath)
+    
+    display(sub_Folderpath(s).name);
+
+    erp_good_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_erp_good.mat']);
+    load([Folderpath,sub_Folderpath(s).name,filesep,erp_good_file(1).name],'ERP');
+
+ %% ERPs
+ 
+    for con = 1:size(ERP.trigs_con,2)
+ 
+        ERP_trigs = ERP.trigs;
+        ERP_trigs_good = ERP_trigs(ERP.trigs_state_good_all{con});
+            
+        ERPs_ntrials_all(s,con) = length(ERP.trigs_state_good_all{con});
+        ERPs_ntrials_tonic(s,con) = length(ERP.trigs_state_good{1,con});
+        ERPs_ntrials_phasic(s,con) = length(ERP.trigs_state_good{2,con});
+        
+
+      for b = 1:nbins
+          bin_duration = 10/nbins;
+          bin_samps = (b-1)*bin_duration*60*60*fs+1:b*bin_duration*60*60*fs;
+          ERPs_ntrials_bins(s,con,b) = length(intersect(ERP_trigs_good,bin_samps));
+          ERPs_perc_trials_bins(s,con,b) = ERPs_ntrials_bins(s,con,b)/length(ERP_trigs_good)*100;
+      end
+
+    clear ERP_trigs_good 
+    
+    end
+    
+end  
+
+
+%% 
 
 ERPs_ntrials_allcon_all = sum(ERPs_ntrials_all(:,1:4),2);
 ERPs_ntrials_allcon_tonic = sum(ERPs_ntrials_tonic(:,1:4),2);
@@ -27,6 +61,7 @@ sd_ERPs_ntrials_allcon_all = nanstd(ERPs_ntrials_allcon_all(incl_sub),1);
 m_ERPs_ntrials_bins = nanmean(ERPs_ntrials_allcon_all_bins(incl_sub,:));
 sd_ERPs_ntrials_bins = nanstd(ERPs_ntrials_allcon_all_bins(incl_sub,:));
 
+bins = {'All' '1st third' '2nd third' '3rd third'};
 
 ntrials_ERPs_table = table(bins',vertcat(m_ERPs_ntrials_allcon_all,m_ERPs_ntrials_bins'),vertcat(sd_ERPs_ntrials_allcon_all,sd_ERPs_ntrials_bins'),'VariableNames',{'Bins' 'Mean' 'SD'});
 % writetable(ntrials_ERPs_table,[Savefolder,'ntrials_ERPs.xlsx']);
@@ -182,7 +217,9 @@ box off
 axis square
 ylim([0 60]);
 
-% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
+
+
 
 %% Theta thirds
 
@@ -229,7 +266,4 @@ box off
 axis square
 ylim([0 60]);
 
-% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);
-
-
-
+saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);

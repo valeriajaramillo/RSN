@@ -10,13 +10,16 @@ Raw data and data to create the figures can be found here:
 [Zenodo DOI](10.5281/zenodo.10663994)
 
 
-Required toolboxes to run the scripts: 
+Required toolboxes/functions to run the scripts: 
 
 - [eeglab v2021.1](https://sccn.ucsd.edu/eeglab/download.php)
 - [fieldtrip revision ebc13229d](https://www.fieldtriptoolbox.org/) 
 - [circular statistics](https://uk.mathworks.com/matlabcentral/fileexchange/10676-circular-statistics-toolbox-directional-statistics)
 - [eBOSC](https://github.com/jkosciessa/eBOSC)
-
+- [linspecer](https://uk.mathworks.com/matlabcentral/fileexchange/42673-beautiful-and-distinguishable-line-colors-colormap)
+- [shadedErrorBar](https://uk.mathworks.com/matlabcentral/fileexchange/26311-raacampbell-shadederrorbar)
+- [echt](https://www.nature.com/articles/s41467-020-20581-7#MOESM3)
+- [DataViz](https://uk.mathworks.com/matlabcentral/fileexchange/74851-daboxplot)
 
 ## Preprocessing
 
