@@ -21,7 +21,7 @@ Required toolboxes to run the scripts:
 ## Preprocessing
 
 ### sleep
----
+##
 **A1_writeedf_for_scoring**: write .edf file that is used for sleep scoring (re-referencing 8 EEG channels used for sleep scoring to mastoids), you need to export .eeg file as .edf file using BrainVisionRecorder before running this script (.edf file is needed)  
 
 **A2_extract_triggers**: extract AEP and CLAS triggers from .eeg file (raw data, provided), save in _nm.mat file  
