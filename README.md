@@ -21,7 +21,7 @@ Required toolboxes to run the scripts:
 ## Preprocessing
 
 ### sleep
-##
+
 **A1_writeedf_for_scoring**: write .edf file that is used for sleep scoring (re-referencing 8 EEG channels used for sleep scoring to mastoids), you need to export .eeg file as .edf file using BrainVisionRecorder before running this script (.edf file is needed)  
 
 **A2_extract_triggers**: extract AEP and CLAS triggers from .eeg file (raw data, provided), save in _nm.mat file  
@@ -40,7 +40,7 @@ Required toolboxes to run the scripts:
 
 
 ### wake
----
+
 **A_load_filter_data_wake**: load and filter wake EEG data from .eeg file (raw data, provided), save as _fil.fdt and .set file  
 
 **B_extract_triggers_wake**: extract AEP triggers from .eeg file (raw data, provided), save in _nm.mat file  
@@ -60,7 +60,7 @@ Required toolboxes to run the scripts:
 
 
 ### connectivity: perform connectivity analyses, run in order A-D
----
+
 **A_phase_connectivity**: calculate the phase using Hilbert transform for trial data  
 **B_PLV_sub**: calculate PLV and PLI for all channel pairs for each participant  
 **C_PLV_allsub**: save PLV and PLI for all participants  
@@ -68,41 +68,41 @@ Required toolboxes to run the scripts:
 **D_cluster_analysis_SnPM_connectivity_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
 
 ### eBOSC: detect oscillations to determine individual peak frequency, run in order A-B
----
+
 **A_eBOSC**: detect oscillations for each epoch  
 **B_eBOSC**: extract oscillations with at least 3 cycles and 300 ms duration, plot histogram and detect peak  
 
 ### ERP: perform AEP analyses for REM and wake data, run in order A-B**
----
+
 **A_ERP_sub_REM**: extract AEP REM data for each participant  
 **A_ERP_sub_wake**: extract AEP wake data for each participant  
 **B_ERP_allsub_REM**: save AEP REM data for all participants  
 **B_ERP_allsub_wake**: save AEP wake data for all participants  
 
 ### frequency: perform frequency analyses, run in order A-C
----
+
 **A_instantaneous_frequency**: calculate instantaneous frequency for REM and wake data for each participant  
 **B_freq_allsub**: calculate frequency for ON and OFF windows and save for all participants  
 **C_cluster_analysis_SnPM_frequency**:  calculate lme for each electrode with cluster correction for alpha CLAS  
 **C_cluster_analysis_SnPM_frequency_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
 
 ### ISI: calculate inter-stimulus-intervals (ISI)
----
+
 **A_ISI_allsub_allch**: calculate ISI's and save for all participants  
 
 ### psd: perform power analyses
----
+
 **A1_Power_ON_OFF_goodREM**: perform power and phase analysis for all trials of each condition and for each participant  
 **B_Power_ON_OFF_allsub_allch**: average across all good trials, all good phasic and all good tonic trials and save for all participants  
 **C_cluster_analysis_SnPM_power**: calculate lme for each electrode with cluster correction for alpha CLAS  
 **C_cluster_analysis_SnPM_power_theta**: calculate lme for each electrode with cluster correction for theta CLAS  
 
 ### resultant: perform phase-locking accuracy analyses
----
+
 **A_resultant_allsub_allch**: calculate resultant and mean phase for each participant, condition and channel and save for all participants  
 
 ### sleep_parameters: calculate sleep stage and phasic/tonic percentages
----
+
 **A_Table1_Sleep_parameters**: calculate classical sleep parameters  
 **B_Table1_phasic_tonic_conditions**: calculate percentage of phasic and tonic REM sleep for each participant and for ON and OFF windows for each condition, save for all participants  
 
