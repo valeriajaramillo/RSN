@@ -63,7 +63,7 @@ Required toolboxes/functions to run the scripts:
 ---
 
 ## Analyses
-make analyses, run after preprocessing  
+make analyses, run after preprocessing, run psd analyses first, rest can be run in any order  
 
 ### ERP
 perform AEP analyses for REM and wake data, run in order A-B
