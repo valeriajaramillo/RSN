@@ -57,7 +57,7 @@ Required toolboxes to run the scripts:
 
 
 ## Analyses
----
+
 
 ### connectivity: perform connectivity analyses, run in order A-D
 ---
@@ -108,7 +108,7 @@ Required toolboxes to run the scripts:
 
 
 ## Figures
----
+
 **Figure1C_phasic_tonic_epoch**: plot example 10-s data for phasic and tonic REM sleep  
 **Figure1D_Suppl_Figure1_ntrials_across_night_erps**: make boxplots for number of AEP and CLAS trials (all and phasic)  
 **Figure2_Suppl_Figure2_phasic_tonic_psd_AEPs**: plot power spectrum and AEPs for phasic, tonic and wake EO (eyes open) and EC (eyes closed)  
