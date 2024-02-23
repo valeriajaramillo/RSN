@@ -2,7 +2,7 @@ clear all;
 close all;
 
 addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Scripts\RSN'));  % distinguishable colors, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Scripts\RSN'));  % contains distinguishable colors function, see README on where to find this
 addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
 Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';

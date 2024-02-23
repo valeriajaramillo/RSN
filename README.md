@@ -111,7 +111,8 @@ calculate number of trials, run in order A-B
 ### psd
 perform power analyses, run in order A-C
 
-**A_Power_ON_OFF_goodREM**: perform power analysis for all trials of each condition and for each participant  
+**A1_Power_rem_wake**: average power across all, phasic, and tonic epochs, and all wake, EO, and EC and save for all participants
+**A2_Power_ON_OFF_goodREM**: perform power analysis for all trials of each condition and for each participant  
 **B_Power_ON_OFF_allsub_allch**: average across all good trials, all good phasic and all good tonic trials and save for all participants  
 **C_cluster_analysis_SnPM_power**: calculate lme for each electrode with cluster correction for alpha CLAS  
 **C_cluster_analysis_SnPM_power_theta**: calculate lme for each electrode with cluster correction for theta CLAS

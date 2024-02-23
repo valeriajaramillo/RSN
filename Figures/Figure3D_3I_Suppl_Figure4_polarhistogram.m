@@ -60,7 +60,7 @@ end
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure4B_polarplot_thetastim_alphafilt_allsub.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure4C_polarplot_thetastim_alphafilt_allsub.svg']);
 
 
 %% Theta stim - thetafilt
