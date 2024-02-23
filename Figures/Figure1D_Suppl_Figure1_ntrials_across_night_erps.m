@@ -4,14 +4,14 @@ close all;
 addpath(genpath('S:\projects\RSN\matlab\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
-load('S:\datasets\RSN\data\analysis\ntrials\ERP_ntrials_allsub.mat')
-load('S:\datasets\RSN\data\analysis\ntrials\nm_ntrials_allsub.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ERP_ntrials_allsub.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\nm_ntrials_allsub.mat')
 
 incl_sub = setdiff(1:19,12);
 
 bins = {'All' '1st third' '2nd third' '3rd third'};
 
-% Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %%
 
@@ -73,7 +73,7 @@ xtickangle(45);
 box off
 axis square
 
-% saveas(fig,[Savefolder,'Figure1_Number_of_trials_AEPs.svg']);
+saveas(fig,[Savefolder,'Figure1D_Number_of_trials_AEPs.svg']);
 
 %% Alpha and Theta boxplot
 
@@ -133,7 +133,7 @@ xtickangle(45);
 box off
 axis square
 
-% saveas(fig,[Savefolder,'Figure1_Number_of_trials_CLAS.svg']);
+saveas(fig,[Savefolder,'Figure1D_Number_of_trials_CLAS.svg']);
 
 
 
@@ -182,7 +182,7 @@ box off
 axis square
 ylim([0 60]);
 
-% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
 
 %% Theta thirds
 
@@ -229,7 +229,7 @@ box off
 axis square
 ylim([0 60]);
 
-% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);
 
 
 
