@@ -20,6 +20,7 @@ Required toolboxes/functions to run the scripts:
 - [shadedErrorBar](https://uk.mathworks.com/matlabcentral/fileexchange/26311-raacampbell-shadederrorbar)
 - [echt](https://www.nature.com/articles/s41467-020-20581-7#MOESM3)
 - [DataViz](https://uk.mathworks.com/matlabcentral/fileexchange/74851-daboxplot)
+- [colorGradient](https://uk.mathworks.com/matlabcentral/fileexchange/31524-colorgradient-generate-custom-linear-colormaps)
 
 ---
 
@@ -43,6 +44,7 @@ Required toolboxes/functions to run the scripts:
 
 **G_goodtrigs**: save triggers that occurred during a 'good' REM sample in _nm_good.mat  
 
+**H_ffttot_sleep**: calculate power spectral density for each sleep epoch  
 
 ### wake
 
@@ -59,6 +61,8 @@ Required toolboxes/functions to run the scripts:
 **F_insert_wake_after_ICA_rereferencing**: re-reference wake data to the average across all channels  
 
 **G_goodtrigs**: save triggers that occurred during a 'good' wake sample in _nm_good.mat  
+
+**H_ffttot_wake**: calculate power spectral density for each wake epoch 
 
 ---
 

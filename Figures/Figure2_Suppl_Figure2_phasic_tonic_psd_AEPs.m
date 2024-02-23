@@ -3,9 +3,7 @@ close all;
 
 addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
 addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-
-% addpath(genpath('/user/HS301/m17462/matlab/ScientificColourMaps7'));
-% addpath(genpath('/user/HS301/m17462/matlab/kispi'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\colorGradient'));  % colorGradient function, see README on where to find this
 
 Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures';
 
@@ -20,38 +18,20 @@ load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ERP_allsub_wake_mICA_
 ERP_wake = ERP_all;
 clear ERP_all
 
-% load('/user/HS301/m17462/matlab/Scripts/RSN/analyses/psd/topo/EEG_chanlocs.mat');
-
 incl_sub = setdiff(1:19,12);
 
 conditions = {'Alpha Phase 0'; 'Alpha Phase 90'; 'Alpha Phase 180'; 'Alpha Phase 270';...
             'Theta Phase 0'; 'Theta Phase 90'; 'Theta Phase 180'; 'Theta Phase 270';}
 
-%% 
-
-% load('/vol/research/nemo/datasets/RSN/data/analysis/topo_allsub/statsresult/statsresult_alpha_7-8 Hz.mat');
-% alpha_cluster_el1 = statsresult.WhichCh_1_max_condition; 
-% clear statsresult
-% 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/topo_allsub/statsresult/statsresult_alpha_10-11 Hz.mat');
-% alpha_cluster_el2 = statsresult.WhichCh_1_max_condition; 
-% clear statsresult
-% 
-% alpha_cluster_combined = unique([alpha_cluster_el1,alpha_cluster_el2]);
 
 %% Average across on and off blocks and calculate change
-ch = [2 34 65 94]; %alpha_cluster_combined; %[2 34 65 94]; % Fz, AFz, AFF1h, AFF2h
-% ch = 16:18; % O1, Oz, Oz
-% lower_freq = 7;
-% higher_freq = 12;
+ch = [2 34 65 94]; % Fz, AFz, AFF1h, AFF2h (4 closest electrodes to phase-locking)
 
 mpsd_con_ch_stage = mpsd_con_ch; % mpsd_con_ch: sub x ch x con x bins x ep
 
 mpsd_con_cluster = squeeze(nanmean(mpsd_con_ch(:,ch,:,:,:),2));
 mpsd_con_cluster_phasic = squeeze(nanmean(mpsd_con_ch_phasic(:,ch,:,:,:),2));
 mpsd_con_cluster_tonic = squeeze(nanmean(mpsd_con_ch_tonic(:,ch,:,:,:),2));
-
-% save('/vol/research/nemo/datasets/RSN/users/Eliska/power/mpsd_frontal.mat','mpsd_con_frontal','mpsd_con_frontal_phasic','mpsd_con_frontal_tonic');
 
 on_block = 7:12;
 off_block = 1:6;
@@ -238,7 +218,7 @@ sig_bins_wake = find(p_wake <= 0.05);
 plot(f(sig_bins_wake),ones(length(sig_bins_wake),1)*-0.2,'*','Color','k');
 
 
-% saveas(fig,[Savefolder,'Figure2_psd_EO_EC_',num2str(ch),'.svg']);
+saveas(fig,[Savefolder,'Figure2A_psd_EO_EC_',num2str(ch),'.svg']);
 
 
 %% PSD phasic, tonic off
@@ -269,7 +249,7 @@ axis square
 sig_bins_REM = find(p_REM <= 0.05);
 plot(f(sig_bins_REM),ones(length(sig_bins_REM),1)*-0.2,'*','Color','k');
 
-% saveas(fig,[Savefolder,'Figure2_psd_phasic_tonic_',num2str(ch),'.svg']);
+saveas(fig,[Savefolder,'Figure2B_psd_phasic_tonic_',num2str(ch),'.svg']);
 
 
 %% Compare EO vs EC
@@ -324,7 +304,7 @@ xticks(-200:200:1000);
 sig_bins_ttest = find(p_EOEC <= 0.05);
 plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
-% saveas(fig,[Savefolder,'Figure2_ERP_EOEC_notmatched.svg']);
+saveas(fig,[Savefolder,'Figure2C_ERP_EOEC_notmatched.svg']);
 
 
 %% Compare phasic vs tonic (not matched)
@@ -371,12 +351,8 @@ plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
 sig_times = t(sig_bins_ttest)
 
-% saveas(fig,[Savefolder,'Figure2_ERP_phasictonic_notmatched.svg']);
+saveas(fig,[Savefolder,'Figure2D_ERP_phasictonic_notmatched.svg']);
 
-% vol_phasic = nanmean(ERP.phasic_vol)
-% vol_tonic = nanmean(ERP.tonic_rand_vol)
-% 
-% [h_vol p_vol] = ttest(ERP.phasic_vol,ERP.tonic_rand_vol)
 
 %% Compare phasic vs tonic (matched)
 
@@ -427,12 +403,9 @@ start_diff(d) = t(sig_bins_ttest(diff_ndx(d-1)+1));
 end_diff(d) = t(sig_bins_ttest(diff_ndx(d)));
 
 end
-% saveas(fig,[Savefolder,'Suppl_Figure2_ERP_phasictonic_matched.svg']);
 
-% vol_phasic = nanmean(ERP.phasic_vol)
-% vol_tonic = nanmean(ERP.tonic_rand_vol)
-% 
-% [h_vol p_vol] = ttest(ERP.phasic_vol,ERP.tonic_rand_vol)
+saveas(fig,[Savefolder,'Suppl_Figure2A_ERP_phasictonic_matched.svg']);
+
 
 %% Compare eve vs mor
 
@@ -487,7 +460,7 @@ xticks(-200:200:1000);
 sig_bins_ttest = find(p_EOEC <= 0.05);
 plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
-% saveas(fig,[Savefolder,'Suppl_Figure2_ERP_evemor_notmatched.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure2B_ERP_evemor_notmatched.svg']);
 
 
 %% Compare tonic volumes using a lme (not matched)
@@ -512,10 +485,6 @@ for samp = 1:size(ERP_REM.REM_vol80{1},2)
     stats = anova(lme_vol);
     p_vol_tonic(samp) = stats.pValue(2);
     F_vol_tonic(samp) = stats.FStat(2);
-%    [beta,betanames,stats] = fixedEffects(lme_vol);
-%    p_vol(samp) = stats.pValue(2);
-  
-%     table_state_all = vertcat(table_state_all,table_state_samp);
         
 end
 
@@ -549,7 +518,7 @@ xticks(-200:200:1000);
 sig_bins_lme = find(p_vol_tonic <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2_ERP_tonic_vol.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_tonic_vol.svg']);
 
 %% Compare phasic volumes using a lme (not matched)
 
@@ -573,10 +542,6 @@ for samp = 1:size(ERP_REM.REM_vol80{2},2)
     stats = anova(lme_vol);
     p_vol_phasic(samp) = stats.pValue(2);
     F_vol_phasic(samp) = stats.FStat(2);
-%    [beta,betanames,stats] = fixedEffects(lme_vol);
-%    p_vol(samp) = stats.pValue(2);
-  
-%     table_state_all = vertcat(table_state_all,table_state_samp);
         
 end
 
@@ -611,4 +576,4 @@ xticks(-200:200:1000);
 sig_bins_lme = find(p_vol_phasic <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2_ERP_phasic_vol.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_phasic_vol.svg']);
