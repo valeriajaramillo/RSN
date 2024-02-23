@@ -1,24 +1,20 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-% addpath(genpath('/user/HS301/m17462/matlab/sprint'));
-% addpath(genpath('/user/HS301/m17462/matlab/brainstorm3-master'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eBOSC'));  % eBOSC toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-addpath(genpath('/user/HS301/m17462/matlab/eBOSC'));
+% Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
+% sub_Folderpath = dir([Folderpath,'RSN*']);
+% 
+% waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/';
 
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
+Folderpath = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\RSN_002\';
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
-sub_Folderpath = dir([Folderpath,'RSN*']);
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
-waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/';
-% waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/30_45_Hz/';
-
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/figures/';
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-
-load('/vol/research/nemo/datasets/RSN/data/analysis/ISI_allsub/ISI_echt_psd_allsub_14-Mar-2023.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ISI_echt_psd_allsub_14-Mar-2023.mat')
 
 
 %% Average across on and off blocks and calculate change
@@ -29,25 +25,21 @@ higher_freq_theta = 7.5;
 
 %%
 
-s = 2; %1:length(sub_Folderpath)   
-
-% mICA_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_sleep*_fil_czref_mICA_avref.set']);
-% EEG = pop_loadset('filename',[mICA_file(1).name],'filepath',[Folderpath,sub_Folderpath(s).name]);
-
-% auxch_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_sleep*_auxch_all.set']);
-% EEG_aux = pop_loadset('filename',[auxch_file(1).name],'filepath',[Folderpath,sub_Folderpath(s).name]);
+% s = 2; %1:length(sub_Folderpath)   
     
-goodREM_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_sleep*_fil_czref_goodREM.mat']);
-load([Folderpath,sub_Folderpath(s).name,filesep,goodREM_file(1).name]);
-%     
-% nm_good_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_nm_good_psd_allch.mat']);
-% load([Folderpath,sub_Folderpath(s).name,filesep,nm_good_file(1).name]); 
+% goodREM_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_sleep*_fil_czref_goodREM.mat']);
+% load([Folderpath,sub_Folderpath(s).name,filesep,goodREM_file(1).name]);
 
-waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves.mat']);
-% waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves_30_45_Hz.mat']);
-load([waves_folder,waves_file(1).name])
+goodREM_file = dir([Folderpath,'*_sleep*_fil_czref_goodREM.mat']);
+load([Folderpath,filesep,goodREM_file(1).name]);
 
-%%
+% waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves.mat']);
+% load([waves_folder,waves_file(1).name])
+
+waves_file = dir([Folderpath,'*_eBOSC_waves.mat']);
+load([Folderpath,waves_file(1).name])
+
+%% find waves during good REM sleep
 
  good_ndx = [];
    for w = 1:length(waves_allepch.startsamp)
@@ -60,7 +52,7 @@ load([waves_folder,waves_file(1).name])
    
   waves_allepch_good = waves_allepch(good_ndx,:);   
 
- %%
+ %% only include waves with more than 3 cycles and 300 ms, find waves in alpha and theta range
 waves_ep_3cyc = waves_allepch_good(waves_allepch_good.cycles > 3,:);
 waves_ep_3cyc_dur = waves_ep_3cyc(waves_ep_3cyc.duration > 0.3,:);
 waves_ep_3cyc_dur_alphatheta = waves_ep_3cyc_dur(waves_ep_3cyc_dur.frequency > 0 & waves_ep_3cyc_dur.frequency < 12.5,:);
@@ -71,12 +63,10 @@ waves_rem = waves_ep_3cyc_dur_alphatheta(waves_ep_3cyc_dur_alphatheta.stage == '
 waves_rem_alpha = waves_ep_3cyc_dur_alpha(waves_ep_3cyc_dur_alpha.stage == 'R',:);
 waves_rem_theta = waves_ep_3cyc_dur_theta(waves_ep_3cyc_dur_theta.stage == 'R',:);
 
-% mdn_wake_alpha(s) = nanmedian(waves_wake_alpha.frequency);
 mdn_rem_alpha(s) = nanmedian(waves_rem_alpha.frequency);
 m_rem_alpha(s) = nanmean(waves_rem_alpha.frequency);
 n_rem_alpha(s) = length(waves_rem_alpha.frequency);
 
-% mdn_wake_theta(s) = nanmedian(waves_wake_theta.frequency);
 mdn_rem_theta(s) = nanmedian(waves_rem_theta.frequency);
 m_rem_theta(s) = nanmean(waves_rem_theta.frequency);
 n_rem_theta(s) = length(waves_rem_theta.frequency);
@@ -102,16 +92,6 @@ m_exponent_n1(s) = nanmean(exponent_allep(find(hypno2 == '1')));
 m_exponent_n2(s) = nanmean(exponent_allep(find(hypno2 == '2')));
 m_exponent_n3(s) = nanmean(exponent_allep(find(hypno2 == '3')));
 m_exponent_rem(s) = nanmean(exponent_allep(find(hypno2 == 'R')));
-
-
-% fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-% % subplot(1,4,1)
-% histogram(waves_wake.frequency,'FaceColor','b')
-% hold on
-% xline(mdn_wake_alpha(s),'Color','b','LineWidth',2)
-% hold on
-% xline(mdn_wake_theta(s),'Color','b','LineWidth',2)
-% % title('Wake');
 
 %% Stim frequency alpha and theta
 
@@ -168,11 +148,7 @@ mdn_ISI_theta = NaN(18,1,1);
      mdn_ISI_thetastim_theta(s) = nanmedian(ISI_thetastim_theta_allcon);
 
       
-%     clear ISI_all_allcon ISI_alpha_allcon ISI_theta_allcon
-
-% end
-
-%% Oscillation frequency - findpeaks
+%% Oscillation frequency histogram - findpeaks
 
 colors = linspecer(8);
 % colors = linspecer(18);
@@ -265,9 +241,10 @@ xticks(0:2:14);
 xlabel('Frequency (Hz)');
 ylabel('Number')
  
-saveas(fig,[Savefolder,'Figure3_',sub_Folderpath(s).name,'_alphastim_freq_findpeaks.svg']);
+% saveas(fig,[Savefolder,'Figure3B_',sub_Folderpath(s).name,'_alphastim_freq_findpeaks.svg']);
+saveas(fig,[Savefolder,'Figure3B_example_alphastim_freq_findpeaks.svg']);
 
-%% Theta stim frequency - findpeaks
+%% Theta stim frequency histogram - findpeaks
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 
@@ -359,6 +336,7 @@ xticks(0:2:14);
 xlabel('Frequency (Hz)');
 ylabel('Number')
  
-saveas(fig,[Savefolder,'Figure3_',sub_Folderpath(s).name,'_thetastim_freq_findpeaks.svg']);
+% saveas(fig,[Savefolder,'Figure3_',sub_Folderpath(s).name,'_thetastim_freq_findpeaks.svg']);
+saveas(fig,[Savefolder,'Figure3G_example_thetastim_freq_findpeaks.svg']);
 
 

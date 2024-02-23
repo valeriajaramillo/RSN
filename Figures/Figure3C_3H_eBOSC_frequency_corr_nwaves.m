@@ -3,9 +3,11 @@ close all;
 
 %%
 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/not_used/Oscillation_Freq_ISI_allsub_03-Aug-2023.mat');
-% load('/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/Oscillation_Freq_ISI_allsub_d03_30-Jan-2024.mat');
-load('/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/Oscillation_Freq_ISI_allsub_d03_08-Feb-2024.mat');
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Oscillation_Freq_ISI_allsub_d03_08-Feb-2024.mat');
+close
+
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+
 %%
 incl_sub = setdiff(1:19,[12]);
 
@@ -37,9 +39,7 @@ length(nonan_sub_alpha)
     yticklabels(7.0:1.0:11.0);
     ytickformat('%.1f')
 
-%     Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-%     saveas(fig,[Savefolder,'Figure3_corr_REM_alpha_oscillations_ISI_Alpha_',num2str(lower_freq_alpha),'_',num2str(higher_freq_alpha),'.svg']);
-
+    saveas(fig,[Savefolder,'Figure3C_corr_REM_alpha_oscillations_ISI_Alpha_',num2str(lower_freq_alpha),'_',num2str(higher_freq_alpha),'.svg']);
 
 %%
 
@@ -75,8 +75,7 @@ length(nonan_sub_theta)
     ytickformat('%.1f')
 
 
-%     Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-%     saveas(fig,[Savefolder,'Figure3_corr_REM_theta_oscillations_ISI_Theta_',num2str(lower_freq_theta),'_',num2str(higher_freq_theta),'.svg']);
+    saveas(fig,[Savefolder,'Figure3H_corr_REM_alpha_oscillations_ISI_Alpha_',num2str(lower_freq_alpha),'_',num2str(higher_freq_alpha),'.svg']);
 
 %% number of waves
 

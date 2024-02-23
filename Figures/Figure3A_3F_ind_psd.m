@@ -1,28 +1,18 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Scripts\RSN'));  % distinguishable colors, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-addpath(genpath('/user/HS301/m17462/matlab/ScientificColourMaps7'));
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-
-load('/vol/research/nemo/datasets/RSN/data/analysis/psd_allsub/psd_allsub_mICA_avref_12-Mar-2023.mat');
-% load('/vol/research/nemo/datasets/RSN/data/analysis/ISI_allsub/ISI_echt_psd_allsub_14-Mar-2023.mat')
-
-load('/user/HS301/m17462/matlab/Scripts/RSN/analyses/psd/topo/EEG_chanlocs.mat');
-
-% load('/vol/research/nemo/datasets/RSN/data/analysis/power_allsub/power_allsub_mICA_avref_09-Mar-2023.mat');
-
-% load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_23-Jun-2023.mat');
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub_mICA_avref_12-Mar-2023.mat');
 
 incl_sub = setdiff(1:19,12);
 
 conditions = {'Alpha Phase 0'; 'Alpha Phase 90'; 'Alpha Phase 180'; 'Alpha Phase 270';...
-            'Theta Phase 0'; 'Theta Phase 90'; 'Theta Phase 180'; 'Theta Phase 270';}
+            'Theta Phase 0'; 'Theta Phase 90'; 'Theta Phase 180'; 'Theta Phase 270';};
 
 %% Average across on and off blocks and calculate change
 ch = [2 34 65 94]; % Fz, AFz, AFF1h, AFF2h
@@ -54,7 +44,6 @@ psd_OFF_allcon = squeeze(nanmean(psd_OFF,2));
 colors = distinguishable_colors(18);
 
 % colors = colorGradient([0.1 0.1 0.1],[0.8 0.8 0.8],18)
-
 % colors = linspecer(18);
    
 % for con = 1:8
@@ -184,7 +173,7 @@ colors = distinguishable_colors(18);
   xline(7.5,'LineWidth',1,'LineStyle','--')
   xline(12.5,'LineWidth',1,'LineStyle','--')
   
-saveas(fig,[Savefolder,'Figure3_Ind_spectrum_alpha.svg']);  
+saveas(fig,[Savefolder,'Figure3A_Ind_spectrum_alpha.svg']);  
   
 %% hdEEG - Theta
 
@@ -321,4 +310,5 @@ colors = distinguishable_colors(18);
   xline(7.5,'LineWidth',1,'LineStyle','--')
 %   xline(12.5,'LineWidth',1,'LineStyle','--')
   
-  saveas(fig,[Savefolder,'Figure3_Ind_spectrum_theta.svg']);  
+  saveas(fig,[Savefolder,'Figure3B_Ind_spectrum_theta.svg']);  
+  

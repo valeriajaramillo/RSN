@@ -1,16 +1,14 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Load file
 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/phase_allsub/phase_allsub_mICA_avref_24-Feb-2023.mat');
-load('/vol/research/nemo/datasets/RSN/data/analysis/phase_allsub/phase_allsub_mICA_avref_alphathetafilt03-Aug-2023.mat');
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\phase_allsub_mICA_avref_alphathetafilt03-Aug-2023.mat');
 
 incl_sub = setdiff(1:19,12);
 
@@ -27,16 +25,11 @@ for con = 1:4
     
     for sub = 1:length(incl_sub)
 
-%     polarhistogram(m(:,ch,con),100,'FaceColor',colors(con,:),'LineWidth',.75)  % Polar Histogram   
-%     polarplot([0 m(incl_sub(sub),ch,con)],[0 r(incl_sub(sub),ch,con)],'Color',[colors(con,:) .4],'LineWidth',3)
     polarplot([0 m_alphafilt(incl_sub(sub),ch,con)],[0 r_alphafilt(incl_sub(sub),ch,con)],'Color',[colors(con,:) .4],'LineWidth',3)
-
     hold on
-    % title({['RSN ',mICA_file(1).name(5:7)] ['Alpha (Fz data)']});
     
     end
     
-%     polarplot([0 circ_mean(m(incl_sub,ch,con))],[0 nanmean(r(incl_sub,ch,con))],'Color',colors(con,:),'LineWidth',5)
     polarplot([0 circ_mean(m_alphafilt(incl_sub,ch,con))],[0 nanmean(r_alphafilt(incl_sub,ch,con))],'Color',colors(con,:),'LineWidth',5)
     rlim([0 0.9])
    
@@ -44,8 +37,7 @@ end
 
   set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
   
-% print([Savefolder,'poloarplot_alpha_allsub'],'-dpng');
-% saveas(gcf,[Savefolder,'Figure3_polarplot_alpha_allsub.svg']);
+saveas(gcf,[Savefolder,'Figure3D_polarplot_alpha_allsub.svg']);
 
 %% Theta stim - alphafilt
 
@@ -54,16 +46,12 @@ for con = 5:8
     
     for sub = 1:length(incl_sub)
 
-%     polarhistogram(m(:,ch,con),100,'FaceColor',colors(con,:),'LineWidth',.75)  % Polar Histogram   
-%     polarplot([0 m(incl_sub(sub),ch,con)],[0 r(incl_sub(sub),ch,con)],'Color',[colors(con,:) .4],'LineWidth',3)
     polarplot([0 m_alphafilt(incl_sub(sub),ch,con)],[0 r_alphafilt(incl_sub(sub),ch,con)],'Color',[colors(con-4,:) .4],'LineWidth',3)
 
     hold on
-    % title({['RSN ',mICA_file(1).name(5:7)] ['Alpha (Fz data)']});
     
     end
     
-%     polarplot([0 circ_mean(m(incl_sub,ch,con))],[0 nanmean(r(incl_sub,ch,con))],'Color',colors(con,:),'LineWidth',5)
     polarplot([0 circ_mean(m_alphafilt(incl_sub,ch,con))],[0 nanmean(r_alphafilt(incl_sub,ch,con))],'Color',colors(con-4,:),'LineWidth',5)
     rlim([0 0.9])
 
@@ -72,7 +60,7 @@ end
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
 
-% saveas(gcf,[Savefolder,'Suppl_Figure3_polarplot_thetastim_alphafilt_allsub.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure4B_polarplot_thetastim_alphafilt_allsub.svg']);
 
 
 %% Theta stim - thetafilt
@@ -85,12 +73,9 @@ for con = 5:8
     
     for sub = 1:length(incl_sub)
 
-%     polarhistogram(m(:,ch,con),100,'FaceColor',colors(con,:),'LineWidth',.75)  % Polar Histogram   
-%     polarplot([0 m(incl_sub(sub),ch,con)],[0 r(incl_sub(sub),ch,con)],'Color',[colors(con-4,:) .4],'LineWidth',3)
     polarplot([0 m_thetafilt(incl_sub(sub),ch,con)],[0 r_thetafilt(incl_sub(sub),ch,con)],'Color',[colors(con-4,:) .4],'LineWidth',3)
 
     hold on
-    % title({['RSN ',mICA_file(1).name(5:7)] ['Alpha (Fz data)']});
     
     end
     
@@ -102,8 +87,7 @@ end
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
 
-% print([Savefolder,'poloarplot_theta_allsub'],'-dpng');
-% saveas(gcf,[Savefolder,'Figure3_polarplot_theta_allsub.svg']);
+saveas(gcf,[Savefolder,'Figure3I_polarplot_theta_allsub.svg']);
 
 %% Alpha stim - thetafilt
 
@@ -112,12 +96,8 @@ for con = 1:4
     
     for sub = 1:length(incl_sub)
 
-%     polarhistogram(m(:,ch,con),100,'FaceColor',colors(con,:),'LineWidth',.75)  % Polar Histogram   
-%     polarplot([0 m(incl_sub(sub),ch,con)],[0 r(incl_sub(sub),ch,con)],'Color',[colors(con-4,:) .4],'LineWidth',3)
     polarplot([0 m_thetafilt(incl_sub(sub),ch,con)],[0 r_thetafilt(incl_sub(sub),ch,con)],'Color',[colors(con,:) .4],'LineWidth',3)
-
     hold on
-    % title({['RSN ',mICA_file(1).name(5:7)] ['Alpha (Fz data)']});
     
     end
     
@@ -127,8 +107,7 @@ end
 
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
-% print([Savefolder,'poloarplot_theta_allsub'],'-dpng');
-% saveas(gcf,[Savefolder,'Suppl_Figure3_polarplot_alphastim_thetafilt_allsub.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure4A_polarplot_alphastim_thetafilt_allsub.svg']);
 
 %%
 

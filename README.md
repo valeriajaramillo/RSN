@@ -21,7 +21,8 @@ Required toolboxes/functions to run the scripts:
 - [echt](https://www.nature.com/articles/s41467-020-20581-7#MOESM3)
 - [DataViz](https://uk.mathworks.com/matlabcentral/fileexchange/74851-daboxplot)
 - [colorGradient](https://uk.mathworks.com/matlabcentral/fileexchange/31524-colorgradient-generate-custom-linear-colormaps)
-
+- [distinguishable colors](https://uk.mathworks.com/matlabcentral/fileexchange/29702-generate-maximally-perceptually-distinct-colors)
+- [ScientificColourMaps](https://www.fabiocrameri.ch/colourmaps/)
 ---
 
 ## Preprocessing
