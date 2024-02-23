@@ -149,32 +149,3 @@ end
 
 save([Savefolder,'power_allsub_mICA_avref_',date,'.mat'],'mfft_rem','mfft_phasic','mfft_tonic','mfft_nrem','mfft_wake_e','mfft_wake_EO_e','mfft_wake_EC_e','mfft_wake_m','mfft_wake_EO_m','mfft_wake_EC_m');
 
-%%
-
-% ch = 17;
-% 
-% for s = 1:size(mfft_rem,1)
-%     
-% figure
-% plot(ff,squeeze(mfft_rem(s,ch,:)),'LineWidth',2);
-% [pks,locs] = findpeaks(squeeze(mfft_rem(s,ch,:)),ff);
-% text(double(locs+.02),double(pks),num2str(locs'));
-% hold on
-% plot(ff,squeeze(mfft_wake_e(s,ch,:)),'LineWidth',2);
-% [pks,locs] = findpeaks(squeeze(mfft_wake_e(s,ch,:)),ff);
-% text(double(locs+.02),double(pks),num2str(locs'));
-% hold on
-% plot(ff,squeeze(mfft_wake_m(s,ch,:)),'LineWidth',2);
-% [pks,locs] = findpeaks(squeeze(mfft_wake_m(s,ch,:)),ff);
-% text(double(locs+.02),double(pks),num2str(locs'));
-% legend({'REM','wake eve','wake mor'});
-% title([sub_Folderpath(s).name]);
-% xlabel('Frequency (Hz)');
-% ylabel('Power spectral density (\muV^2/s)');
-% 
-% print([Savefolder,sub_Folderpath(s).name,'_power_ch',num2str(ch)],'-dpng');
-% 
-% end
-
-
-
