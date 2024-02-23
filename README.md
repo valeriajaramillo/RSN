@@ -29,9 +29,9 @@ Required toolboxes/functions to run the scripts:
 
 **A1_writeedf_for_scoring**: write .edf file that is used for sleep scoring (re-referencing 8 EEG channels used for sleep scoring to mastoids), you need to export .eeg file as .edf file using BrainVisionRecorder before running this script (.edf file is needed)  
 
-**A2_extract_triggers**: extract AEP and CLAS triggers from .eeg file (raw data, provided), save in _nm.mat file  
+**A2_extract_triggers**: extract AEP and CLAS triggers from .eeg file, save in _nm.mat file  
 
-**B1_load_filter_data**: load and filter sleep EEG data from .eeg file (raw data, provided), save as _fil.fdt and .set file  
+**B1_load_filter_data**: load and filter sleep EEG data from .eeg file, save as _fil.fdt and .set file  
 
 **C1_artcorr_extract_REM**: load filtered data, sleep scoring, and phasic/tonic scoring data, visualize REM sleep EEG using eeglab, visually identify and interpolate bad channels, visually mark segments that contain artefacts, save _goodREM.fdt and .set files that only contain 'good' (artefact-free) REM samples, save _goodREM.mat file containing information about sleep and phasic/tonic scoring, bad channels, and artefacts  
 
@@ -85,9 +85,9 @@ perform connectivity analyses, run in order A-D
 ### eBOSC
 calculate ISI's to deterime stimulation frequency, detect oscillations to determine individual peak frequency, run in order A-C
 
-**A_ISI_allsub_allch**: calculate ISI's and save for all participants
+**A_ISI_allsub_allch**: calculate ISI's and save for all participants  
 **B_eBOSC**: detect oscillations for each epoch  
-**C_eBOSC**: extract oscillations with at least 3 cycles and 300 ms duration, plot histogram and detect peak 
+**C_eBOSC**: extract oscillations with at least 3 cycles and 300 ms duration, plot histogram and detect peak  
 
 ### frequency
 perform frequency analyses, run in order A-C
@@ -100,8 +100,8 @@ perform frequency analyses, run in order A-C
 ### ntrials
 calculate number of trials, run in order A-B
 
-**A_ntrials_ERPs**
-**B_ntrials_nm**
+**A_ntrials_ERPs**: save number of AEP trials (all, phasic, tonic, thirds of night) for all participants  
+**B_ntrials_nm**: save number of  CLAS trials (all, phasic, tonic, thirds of night) for all participants  
 
 ### psd
 perform power analyses, run in order A-C
