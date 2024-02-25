@@ -1,9 +1,7 @@
 clear all;
 close all;
 
-% savefolder = 'L:\Somnus-Data\User\Valeria_Jaramillo\Data\Papers\Slope_development\cheby\all\';
-
-excel = '/vol/research/nemo/datasets/RSN/data/analysis/questionnaires/KarolinskaSleepinessAnswers.xlsx';
+excel = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\KarolinskaSleepinessAnswers.xlsx';
 sheet = 'Sheet1';
 
 [sub_excel sub_excel] = xlsread(excel,sheet,'A2:A19');
@@ -23,9 +21,7 @@ sd_mor = nanstd(KSS_mor)
 clear all;
 close all;
 
-% savefolder = 'L:\Somnus-Data\User\Valeria_Jaramillo\Data\Papers\Slope_development\cheby\all\';
-
-excel = '/vol/research/nemo/datasets/RSN/data/analysis/questionnaires/VisualAnalogueMoodAnswers.xlsx';
+excel = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\VisualAnalogueMoodAnswers.xlsx';
 sheet = 'Sheet1';
 
 [sub_excel sub_excel] = xlsread(excel,sheet,'A3:A20');
@@ -73,52 +69,4 @@ sd_calm_tense_mor = nanstd(calm_tense_mor)
 
 sd_energetic_sleepy_eve = nanstd(energetic_sleepy_eve)
 sd_energetic_sleepy_mor = nanstd(energetic_sleepy_mor)
-
-
-% [h p_happy ci stats_happy] = ttest(happy_eve,happy_mor)
-% [h p_sad ci stats_sad] = ttest(sad_eve,sad_mor)
-% [h p_calm ci stats_calm] = ttest(calm_eve,calm_mor)
-% [h p_tense ci stats_tense] = ttest(tense_eve,tense_mor)
-% [h p_energetic ci stats_energetic] = ttest(energetic_eve,energetic_mor)
-% [h p_sleepy ci stats_sleepy] = ttest(sleepy_eve,sleepy_mor)
-
-% m_happy_eve = nanmean(happy_eve)
-% m_happy_mor = nanmean(happy_mor)
-% 
-% m_sad_eve = nanmean(sad_eve)
-% m_sad_mor = nanmean(sad_mor)
-% 
-% m_calm_eve = nanmean(calm_eve)
-% m_calm_mor = nanmean(calm_mor)
-% 
-% m_tense_eve = nanmean(tense_eve)
-% m_tense_mor = nanmean(tense_mor)
-% 
-% m_energetic_eve = nanmean(energetic_eve)
-% m_energetic_mor = nanmean(energetic_mor)
-% 
-% m_sleepy_eve = nanmean(sleepy_eve)
-% m_sleepy_mor = nanmean(sleepy_mor)
-% 
-% 
-% sd_happy_eve = nanstd(happy_eve)
-% sd_happy_mor = nanstd(happy_mor)
-% 
-% sd_sad_eve = nanstd(sad_eve)
-% sd_sad_mor = nanstd(sad_mor)
-% 
-% sd_calm_eve = nanstd(calm_eve)
-% sd_calm_mor = nanstd(calm_mor)
-% 
-% sd_tense_eve = nanstd(tense_eve)
-% sd_tense_mor = nanstd(tense_mor)
-% 
-% sd_energetic_eve = nanstd(energetic_eve)
-% sd_energetic_mor = nanstd(energetic_mor)
-% 
-% sd_sleepy_eve = nanstd(sleepy_eve)
-% sd_sleepy_mor = nanstd(sleepy_mor)
-
-
-
 
