@@ -276,28 +276,28 @@ end
 
 %% 
 
-% alpha stim
-phasictonic_diff_all_alpha = vertcat(diff_on_off_trials(incl_sub,1),diff_on_off_trials(incl_sub,2),diff_on_off_trials(incl_sub,3),diff_on_off_trials(incl_sub,4));  
-cond_all = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));  
-sub_all = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
-table_diff_alpha = table(phasictonic_diff_all_alpha,cond_all,sub_all,'VariableNames',{'phasictonic_diff_all','condition','sub'});
-table_diff_alpha.condition = categorical(table_diff_alpha.condition);
-table_diff_alpha.sub = categorical(table_diff_alpha.sub);
-lme_diff_alpha = fitlme(table_diff_alpha,'phasictonic_diff_all ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
-anova(lme_diff_alpha)
-
-
-% theta stim
-phasictonic_diff_all_theta = vertcat(diff_on_off_trials(incl_sub,5),diff_on_off_trials(incl_sub,6),diff_on_off_trials(incl_sub,7),diff_on_off_trials(incl_sub,8));  
-cond_all = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));  
-sub_all = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
-table_diff_theta = table(phasictonic_diff_all_theta,cond_all,sub_all,'VariableNames',{'phasictonic_diff_all','condition','sub'});
-table_diff_theta.condition = categorical(table_diff_theta.condition);
-table_diff_theta.sub = categorical(table_diff_theta.sub);
-lme_diff_theta = fitlme(table_diff_theta,'phasictonic_diff_all ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
-anova(lme_diff_theta)
-
-
+% % alpha stim
+% phasictonic_diff_all_alpha = vertcat(diff_on_off_trials(incl_sub,1),diff_on_off_trials(incl_sub,2),diff_on_off_trials(incl_sub,3),diff_on_off_trials(incl_sub,4));  
+% cond_all = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));  
+% sub_all = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+% table_diff_alpha = table(phasictonic_diff_all_alpha,cond_all,sub_all,'VariableNames',{'phasictonic_diff_all','condition','sub'});
+% table_diff_alpha.condition = categorical(table_diff_alpha.condition);
+% table_diff_alpha.sub = categorical(table_diff_alpha.sub);
+% lme_diff_alpha = fitlme(table_diff_alpha,'phasictonic_diff_all ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+% anova(lme_diff_alpha)
+% 
+% 
+% % theta stim
+% phasictonic_diff_all_theta = vertcat(diff_on_off_trials(incl_sub,5),diff_on_off_trials(incl_sub,6),diff_on_off_trials(incl_sub,7),diff_on_off_trials(incl_sub,8));  
+% cond_all = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));  
+% sub_all = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+% table_diff_theta = table(phasictonic_diff_all_theta,cond_all,sub_all,'VariableNames',{'phasictonic_diff_all','condition','sub'});
+% table_diff_theta.condition = categorical(table_diff_theta.condition);
+% table_diff_theta.sub = categorical(table_diff_theta.sub);
+% lme_diff_theta = fitlme(table_diff_theta,'phasictonic_diff_all ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+% anova(lme_diff_theta)
+% 
+% 
 
 
 
