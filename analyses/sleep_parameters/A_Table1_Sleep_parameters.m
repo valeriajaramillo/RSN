@@ -106,5 +106,3 @@ sleep_parameters_table_8h = table(vertcat(m_tots_8h,m_sl_8h,m_waso_8h,m_seff_8h,
     vertcat(sd_tots_8h,sd_sl_8h,sd_waso_8h,sd_seff_8h,sd_perc_nr_8h,sd_perc_r_8h));
 
 % writetable(sleep_parameters_table_8h,[savefolder,'sleep_parameters_8h.xlsx']);
-
-

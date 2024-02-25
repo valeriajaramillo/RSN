@@ -54,7 +54,7 @@ for band1 = 1:4
         
     display(['Band2 = ', num2str(band2)]);
 
-    for cond = 1%:8
+    for cond = 1:8
         
         display(['Cond = ', num2str(cond)]);
     

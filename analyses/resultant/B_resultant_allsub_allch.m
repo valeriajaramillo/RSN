@@ -39,24 +39,6 @@ for s = 1:length(sub_Folderpath)
         stimphase_good_alphafilt_con = nm.stimphase_good_alphafilt{con}; % psd: bins x ep x trials x ch
         stimphase_good_thetafilt_con = nm.stimphase_good_thetafilt{con}; % psd: bins x ep x trials x ch
 
-        
-%         for ch = 1:size(stimphase_good_con,1)
-%             
-%             if ~ isempty(stimphase_good_con)
-%         
-%                 stimphase_good_ch = stimphase_good_con(ch,:);
-%                 r(s,ch,con) = circ_r(stimphase_good_ch');
-%                 m(s,ch,con) = circ_mean(stimphase_good_ch');
-%                 std(s,ch,con) = circ_std(stimphase_good_ch');
-%        
-%                 clear stimphase_good_ch
-%             
-%             end
-%         
-%         end
-
-%         clear stimphase_good_con
-
 
         for ch = 1:size(stimphase_good_alphafilt_con,1)
             

@@ -18,7 +18,7 @@ dt = 1;
 fs = 500;
 
 %%
-for s = 16:length(sub_Folderpath)
+for s = 1:length(sub_Folderpath)
     
 display(s); 
 
