@@ -148,7 +148,7 @@ make figures, run after analyses
 **Figure4E-F_4K-L_Frequency_ON_OFF_change_boxplots_time**: make boxplots for frequency change and plot frequency change over time across different conditions  
 **Figure4H_4I_Power_ON_OFF_change_psd_phasictonic_theta**: plot power changes across spectrum for theta CLAS  
 **Suppl_Figure3_ISI_autocorr**: plot autocorrelation across ISI's  
-**Suppl_Figure11_19_connectivity**: plot topography of connectivity change lme F-values and significant electrode clusters, plot significant connections and boxplots for different conditions
+**Suppl_Figure11_19_connectivity**: plot topography of connectivity change lme F-values and significant electrode clusters, plot significant connections and boxplots for different conditions  
 **Suppl_Table1_questionnaires**: make table for KSS and VAMS changes from evening to morning  
 
 
