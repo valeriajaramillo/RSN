@@ -1,13 +1,15 @@
 clear all;
 close all;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/ISI_allsub/ISI_echt_psd_allsub_14-Mar-2023.mat');
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ISI_echt_psd_allsub_14-Mar-2023.mat');
 
 incl_sub = setdiff(1:19,12);
 
 colors = linspecer(4);
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %%
 
@@ -45,7 +47,7 @@ box off
 axis square
 xticks([0:5:20]);
 
-saveas(fig,[Savefolder,'Figure3_ISI_autocorr_alphastim.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure3_ISI_autocorr_alphastim.svg']);
 
 
 %% Theta
@@ -66,6 +68,6 @@ box off
 axis square
 xticks([0:5:20]);
 
-saveas(fig,[Savefolder,'Figure3_ISI_autocorr_thetastim.svg']);
+saveas(fig,[Savefolder,'Suppl_Figure3_ISI_autocorr_thetastim.svg']);
 
 

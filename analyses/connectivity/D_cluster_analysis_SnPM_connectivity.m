@@ -3,7 +3,7 @@ close all;
 
 addpath(genpath('/users/psychology01/software/fieldtrip'));
 addpath(genpath('/users/psychology01/software/eeglab'));
-% addpath(genpath('/mnt/beegfs/users/psychology01/useful_functions'));
+addpath(genpath('/users/psychology01/Valeria/Scripts/RSN/analysis'));
 
 Savefolder = '/users/m17462/psychology01/parallel_scratch/projects/RSN/analysis/';
 % Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/topo_allsub_lapref/';
@@ -14,14 +14,14 @@ cluster = parcluster('eureka'); % to add cluster go to home - parallel - create 
 % cluster.SubmitArguments = compose("--partition=high_mem --mem=%dG
 % --time=%d", 16, 24*60); % for high memory job (max. memory that can be
 % allocated in normal job is 8 or 12 GB, max. time is 7 days)
-cluster.SubmitArguments = compose("--mem=%dG --time=%d", 64, 72*60); % for normal job, mem: memory in GB, time: time in min that is allocated to this job
+cluster.SubmitArguments = compose("--mem=%dG --time=%d", 24, 72*60); % for normal job, mem: memory in GB, time: time in min that is allocated to this job
 cluster.NumWorkers = 1;
 % cluster.NumThreads = 4;
 cluster.JobStorageLocation = '/users/psychology01/Valeria/jobfiles'; % wdir: directory where job file is put
 
-for band1 = 1:4
+for band1 = 3 %1:4
     
-    for band2 = band1:4
+    for band2 = 3:4 %1:4
     
     batch(cluster,@cluster_analysis_connectivity,0,{Savefolder, band1, band2},'AutoAttachFiles', false, ...
         'AutoAddClientPath', true, ...
@@ -36,7 +36,8 @@ function cluster_analysis_connectivity(Savefolder, band1, band2)
 
 try
     
-    load('/users/m17462/psychology01/parallel_scratch/projects/RSN/analysis/connectivity_allsub_25-Aug-2023.mat','PLV*','PLI*');
+%     load('/users/m17462/psychology01/parallel_scratch/projects/RSN/analysis/connectivity_allsub_25-Aug-2023.mat','PLV*','PLI*');
+    load('/users/m17462/psychology01/parallel_scratch/projects/RSN/analysis/connectivity_allsub_07-Dec-2023.mat','PLV*','PLI*');
     
     band_name = {'1-4 Hz' '4-7 Hz' '7-12 Hz' '13-30 Hz' '8-12 Hz'};
     
@@ -126,11 +127,11 @@ try
     
     incl_sub = setdiff(1:19,12);
     
-    seeds = 1:127; %[2 34 65 94];
+    seeds = [2 34 65 94] %1:128; %[2 34 65 94];
     
     table_allch = [];
     
-    for ch = 1:127
+    for ch = 1:128
         
         perc_change_allcon = [];
         
@@ -178,11 +179,11 @@ try
     
     u = 1000;
     type = 'categorical';
-    nch = 127;
+    nch = 128;
     
     statsresult = SnPM_lmer_clus_def_PLV(u,table_allch,type,nch,neighbours);
     display('saving PLV');
-    save([Savefolder,'statsresult_alphastim_PLV_',band_name{band1},'-',band_name{band2},'.mat'],'statsresult');
+    save([Savefolder,'statsresult_alphastim_PLV_frontalseeds_',band_name{band1},'-',band_name{band2},'.mat'],'statsresult');
     
     clear table_allch statsresult
             
@@ -195,11 +196,11 @@ try
     
     incl_sub = setdiff(1:19,12);
     
-    seeds = 1:127; %[2 34 65 94];
+    seeds = [2 34 65 94] %1:128; %[2 34 65 94];
     
     table_allch = [];
     
-    for ch = 1:127
+    for ch = 1:128
         
         perc_change_allcon = [];
         
@@ -247,10 +248,10 @@ try
     
     u = 1000;
     type = 'categorical';
-    nch = 127;
+    nch = 128;
     statsresult = SnPM_lmer_clus_def_PLI(u,table_allch,type,nch,neighbours);    
     display('saving PLI');
-    save([Savefolder,'statsresult_alphastim_PLI_',band_name{band1},'-',band_name{band2},'.mat'],'statsresult');
+    save([Savefolder,'statsresult_alphastim_PLI_frontalseeds_',band_name{band1},'-',band_name{band2},'.mat'],'statsresult');
     
     clear table_allch statsresult
             
