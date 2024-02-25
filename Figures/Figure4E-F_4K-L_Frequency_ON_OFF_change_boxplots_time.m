@@ -1,22 +1,15 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
-addpath(genpath('/user/HS301/m17462/matlab/ScientificColourMaps7'));
-addpath(genpath('/user/HS301/m17462/matlab/DataViz'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_27-Mar-2023');
 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_23-Jun-2023.mat');
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_23-Jan-2024.mat');
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\freqalphatheta_allsub_23-Jan-2024');
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/';
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/topo_allsub_lapref/';
-
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Average across on and off blocks and calculate change
 
@@ -36,19 +29,19 @@ colors = linspecer(4);
 
 %%
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
 alphastim_alpha_cluster_el = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
 alphastim_theta_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_3_max_condition]; 
 clear statsresult
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
 thetastim_alpha_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_2_max_condition]; 
 clear statsresult
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
 thetastim_theta_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_2_max_condition]; 
 clear statsresult
 
@@ -172,9 +165,8 @@ log_perc_change_tonic_cluster_long = log_perc_change_tonic_cluster(:);
 
 sub_table = vertcat(sub(incl_sub)',sub(incl_sub)',sub(incl_sub)',sub(incl_sub)');
 cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
-% psd_change_bin_con = vertcat(psd_change_phasic_bin(:,con),psd_change_tonic_bin(:,con));
-table_allcon_alpha_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','power_change'});
-table_allcon_alpha_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','power_change'});
+table_allcon_alpha_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
+table_allcon_alpha_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
 table_allcon_alpha_phasictonic = vertcat(table_allcon_alpha_phasic,table_allcon_alpha_tonic);
 substage = vertcat(repmat(1,length(incl_sub)*4,1),repmat(2,length(incl_sub)*4,1));
 table_allcon_alpha_phasictonic.substage = substage;
@@ -182,7 +174,7 @@ table_allcon_alpha_phasictonic.substage = categorical(table_allcon_alpha_phasict
 table_allcon_alpha_phasictonic.condition = categorical(table_allcon_alpha_phasictonic.condition);
 table_allcon_alpha_phasictonic.sub = categorical(table_allcon_alpha_phasictonic.sub);
     
-lme = fitlme(table_allcon_alpha_phasictonic,'power_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
+lme = fitlme(table_allcon_alpha_phasictonic,'frequency_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
 stats = anova(lme);
 p_con_alphastim_alpha = stats.pValue(2);
 p_substage_alphastim_alpha = stats.pValue(3);
@@ -229,8 +221,8 @@ log_perc_change_tonic_cluster_long = log_perc_change_tonic_cluster(:);
 sub_table = vertcat(sub(incl_sub)',sub(incl_sub)',sub(incl_sub)',sub(incl_sub)');
 cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
 % psd_change_bin_con = vertcat(psd_change_phasic_bin(:,con),psd_change_tonic_bin(:,con));
-table_allcon_alpha_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','power_change'});
-table_allcon_alpha_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','power_change'});
+table_allcon_alpha_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
+table_allcon_alpha_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
 table_allcon_alpha_phasictonic = vertcat(table_allcon_alpha_phasic,table_allcon_alpha_tonic);
 substage = vertcat(repmat(1,length(incl_sub)*4,1),repmat(2,length(incl_sub)*4,1));
 table_allcon_alpha_phasictonic.substage = substage;
@@ -238,7 +230,7 @@ table_allcon_alpha_phasictonic.substage = categorical(table_allcon_alpha_phasict
 table_allcon_alpha_phasictonic.condition = categorical(table_allcon_alpha_phasictonic.condition);
 table_allcon_alpha_phasictonic.sub = categorical(table_allcon_alpha_phasictonic.sub);
     
-lme = fitlme(table_allcon_alpha_phasictonic,'power_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
+lme = fitlme(table_allcon_alpha_phasictonic,'frequency_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
 stats = anova(lme);
 p_con_alphastim_theta = stats.pValue(2);
 p_substage_alphastim_theta = stats.pValue(3);
@@ -260,14 +252,6 @@ group_inx = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),re
 condition_names = {'4-7 Hz' '7-12 Hz'};
 group_names = {'Peak' 'Falling' 'Trough' 'Rising'};
 
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-% violinPlot([perc_change_band_phasic_cluster perc_change_band_tonic_cluster]);
-% xticklabels({'Phasic' 'Tonic'});
-% ylabel('Power change (%)')
-% title(band_name{band});
-% set(gca,'FontSize',35');
-% axis square
-
 colors = linspecer(4)
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
@@ -285,8 +269,7 @@ box off
 axis square
 ylim([-3 4]);
 
-% saveas(gcf,[Savefolder,'Figure4_InstFreq_boxplot_conditions_alphastim','.svg']);
-
+saveas(gcf,[Savefolder,'Figure4E_InstFreq_boxplot_conditions_alphastim','.svg']);
 
 %% thetastim - alpha band 
 
@@ -321,9 +304,8 @@ log_perc_change_tonic_cluster_long = log_perc_change_tonic_cluster(:);
 
 sub_table = vertcat(sub(incl_sub)',sub(incl_sub)',sub(incl_sub)',sub(incl_sub)');
 cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
-% psd_change_bin_con = vertcat(psd_change_phasic_bin(:,con),psd_change_tonic_bin(:,con));
-table_allcon_theta_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','power_change'});
-table_allcon_theta_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','power_change'});
+table_allcon_theta_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
+table_allcon_theta_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
 table_allcon_theta_phasictonic = vertcat(table_allcon_theta_phasic,table_allcon_theta_tonic);
 substage = vertcat(repmat(1,length(incl_sub)*4,1),repmat(2,length(incl_sub)*4,1));
 table_allcon_theta_phasictonic.substage = substage;
@@ -331,7 +313,7 @@ table_allcon_theta_phasictonic.substage = categorical(table_allcon_theta_phasict
 table_allcon_theta_phasictonic.condition = categorical(table_allcon_theta_phasictonic.condition);
 table_allcon_theta_phasictonic.sub = categorical(table_allcon_theta_phasictonic.sub);
     
-lme = fitlme(table_allcon_theta_phasictonic,'power_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
+lme = fitlme(table_allcon_theta_phasictonic,'frequency_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
 stats = anova(lme);
 p_con_thetastim_alpha = stats.pValue(2);
 p_substage_thetastim_alpha = stats.pValue(3);
@@ -377,9 +359,8 @@ log_perc_change_tonic_cluster_long = log_perc_change_tonic_cluster(:);
 
 sub_table = vertcat(sub(incl_sub)',sub(incl_sub)',sub(incl_sub)',sub(incl_sub)');
 cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
-% psd_change_bin_con = vertcat(psd_change_phasic_bin(:,con),psd_change_tonic_bin(:,con));
-table_allcon_theta_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','power_change'});
-table_allcon_theta_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','power_change'});
+table_allcon_theta_phasic = table(sub_table,cond,log_perc_change_phasic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
+table_allcon_theta_tonic = table(sub_table,cond,log_perc_change_tonic_cluster_long,'VariableNames',{'sub','condition','frequency_change'});
 table_allcon_theta_phasictonic = vertcat(table_allcon_theta_phasic,table_allcon_theta_tonic);
 substage = vertcat(repmat(1,length(incl_sub)*4,1),repmat(2,length(incl_sub)*4,1));
 table_allcon_theta_phasictonic.substage = substage;
@@ -387,7 +368,7 @@ table_allcon_theta_phasictonic.substage = categorical(table_allcon_theta_phasict
 table_allcon_theta_phasictonic.condition = categorical(table_allcon_theta_phasictonic.condition);
 table_allcon_theta_phasictonic.sub = categorical(table_allcon_theta_phasictonic.sub);
     
-lme = fitlme(table_allcon_theta_phasictonic,'power_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
+lme = fitlme(table_allcon_theta_phasictonic,'frequency_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
 stats = anova(lme);
 p_con_thetastim_theta = stats.pValue(2);
 p_substage_thetastim_theta = stats.pValue(3);
@@ -409,14 +390,6 @@ group_inx = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),re
 condition_names = {'4-7 Hz' '7-12 Hz'};
 group_names = {'Peak' 'Falling' 'Trough' 'Rising'};
 
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-% violinPlot([perc_change_band_phasic_cluster perc_change_band_tonic_cluster]);
-% xticklabels({'Phasic' 'Tonic'});
-% ylabel('Power change (%)')
-% title(band_name{band});
-% set(gca,'FontSize',35');
-% axis square
-
 colors = linspecer(4)
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
@@ -434,8 +407,7 @@ box off
 axis square
 ylim([-3 4]);
 
-% saveas(gcf,[Savefolder,'Figure4_InstFreq_boxplot_conditions_thetastim','.svg']);
-
+saveas(gcf,[Savefolder,'Figure4K_InstFreq_boxplot_conditions_thetastim','.svg']);
 
 %% Time course - Alphastim - alpha freq - Compare conditions using a lme 
 
@@ -471,11 +443,6 @@ for samp = 1:size(freq_change_smoothed_alphastim_alpha,3)
     table_allcon_alphastim_alpha.sub = categorical(table_allcon_alphastim_alpha.sub);
     
    lme = fitlme(table_allcon_alphastim_alpha,'freq_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
-%    [pVal_alpha(b),F_alhpa(b),DF1_alpha(b),DF2_alpha(b)] = coefTest(lme);
-%    [beta,betanames,stats] = fixedEffects(lme);
-%    p_con_alpha(b) = stats.pValue(2);
-%    p_win_alpha(b) = stats.pValue(3);
-%    p_con_win_alpha(b) = stats.pValue(4);
 
    stats = anova(lme);
    p_con_alphastim_alpha(samp) = stats.pValue(2);
@@ -516,9 +483,6 @@ end
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 
-% t = tiledlayout(2,2);
-% nexttile(1)
-
 for con = 1:4
 m_freq_change_alphastim_alpha_time_con = nanmean(freq_change_smoothed_alphastim_alpha(:,con,:),1);
 sem_freq_change_alphastim_alpha_time_con = nanstd(freq_change_smoothed_alphastim_alpha(:,con,:),1)./sqrt(size(freq_change_smoothed_alphastim_alpha,1));
@@ -532,10 +496,10 @@ hold on
 end
 
 
-% con = 1;
-% sig_samps = find(p_alphastim_alpha(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-0.9,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
-% hold on
+con = 1;
+sig_samps = find(p_alphastim_alpha(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-0.9,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
+hold on
 
 con = 2;
 sig_samps = find(p_alphastim_alpha(con,:) < 0.05);
@@ -555,10 +519,6 @@ hold on
 sig_samps_lme = find(p_con_alphastim_alpha <= 0.05);
 plot(sig_samps_lme,ones(length(sig_samps_lme),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
 
-% sig_samps_lme_peak_trough = find(p_alphastim_alpha_peak_trough <= 0.05);
-% plot(sig_samps_lme_peak_trough,ones(length(sig_samps_lme_peak_trough),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
-
-
 xlim([501 6000]);
 xline(3000,'LineStyle','--','LineWidth',2);
 ylim([-1.5 1.5]);
@@ -566,16 +526,13 @@ xticks(1:1000:6000);
 xticklabels(0:2:12);
 xlabel('Time (s)');
 ylabel('Frequency change (%)');
-% title('9.9-11.8 Hz');
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 box off
 axis square
 yline(-1.3,'LineWidth',2);
 title('7-12 Hz');
 
-
-% saveas(fig,[Savefolder,'Figure4_alphastim_alpha_frequency_change_time.svg']);
-
+saveas(fig,[Savefolder,'Figure4F_alphastim_alpha_frequency_change_time.svg']);
 
 %% Time course - Alphastim - theta freq - Compare conditions using a lme 
 
@@ -595,7 +552,7 @@ for samp = 1:size(freq_change_smoothed_alphastim_theta,3)
 
     table_allcon_alphastim_theta = [];
     
-    for con = [1 2] %1:4
+    for con = 1:4
         
         sub_table = vertcat(sub',sub');
         cond = repmat(con,length(sub)*2,1);
@@ -611,11 +568,6 @@ for samp = 1:size(freq_change_smoothed_alphastim_theta,3)
     table_allcon_alphastim_theta.sub = categorical(table_allcon_alphastim_theta.sub);
     
    lme = fitlme(table_allcon_alphastim_theta,'freq_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
-%    [pVal_alpha(b),F_alhpa(b),DF1_alpha(b),DF2_alpha(b)] = coefTest(lme);
-%    [beta,betanames,stats] = fixedEffects(lme);
-%    p_con_alpha(b) = stats.pValue(2);
-%    p_win_alpha(b) = stats.pValue(3);
-%    p_con_win_alpha(b) = stats.pValue(4);
 
    stats = anova(lme);
    p_con_alphastim_theta(samp) = stats.pValue(2);
@@ -655,9 +607,8 @@ end
 %% Alphastim - theta freq - Time course plot
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-% nexttile(3)
 
-for con = [1 2] %1:4
+for con = 1:4
 m_freq_change_alphastim_theta_time_con = nanmean(freq_change_smoothed_alphastim_theta(:,con,:),1);
 sem_freq_change_alphastim_theta_time_con = nanstd(freq_change_smoothed_alphastim_theta(:,con,:),1)./sqrt(size(freq_change_smoothed_alphastim_theta,1));
 
@@ -680,44 +631,34 @@ sig_samps = find(p_alphastim_theta(con,:) < 0.05);
 plot(sig_samps,ones(length(sig_samps),1,1)*-1,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
 hold on
 
-% con = 3;
-% sig_samps = find(p_alphastim_theta(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-1.1,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
-% hold on
-% 
-% con = 4;
-% sig_samps = find(p_alphastim_theta(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-1.2,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
-% hold on
+con = 3;
+sig_samps = find(p_alphastim_theta(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-1.1,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
+hold on
+
+con = 4;
+sig_samps = find(p_alphastim_theta(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-1.2,'square','MarkerFaceColor',colors(con,:),'MarkerEdgeColor',colors(con,:),'MarkerSize',5);
+hold on
 
 sig_samps_lme = find(p_con_alphastim_theta <= 0.05);
 plot(sig_samps_lme,ones(length(sig_samps_lme),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
 
-% sig_samps_lme_falling_rising = find(p_alphastim_theta_falling_rising <= 0.05);
-% plot(sig_samps_lme_falling_rising,ones(length(sig_samps_lme_falling_rising),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
-
 
 xlim([501 6000]);
 xline(3000,'LineStyle','--','LineWidth',2);
-% ylim([-1.5 1.5]);
 xticks(1:1000:6000);
 xticklabels(0:2:12);
 xlabel('Time (s)');
 ylabel('Frequency change (%)');
-% title('9.9-11.8 Hz');
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 box off
 axis square
 yline(-1.3,'LineWidth',2);
 title('4-7 Hz');
 
-% t.TileSpacing = 'tight';
-% t.Padding = 'compact';
 
-saveas(fig,[Savefolder,'Figure4_alphastim_theta_frequency_change_time.svg']);
-
-
-
+saveas(fig,[Savefolder,'Figure4F_alphastim_theta_frequency_change_time.svg']);
 
 
 %% Time course - Thetastim - alpha freq - Compare conditions using a lme 
@@ -738,7 +679,7 @@ for samp = 1:size(freq_change_smoothed_thetastim_alpha,3)
 
     table_allcon_thetastim_alpha = [];
     
-    for con = 8 %5:8
+    for con = 5:8
         
         sub_table = vertcat(sub',sub');
         cond = repmat(con,length(sub)*2,1);
@@ -754,20 +695,13 @@ for samp = 1:size(freq_change_smoothed_thetastim_alpha,3)
     table_allcon_thetastim_alpha.sub = categorical(table_allcon_thetastim_alpha.sub);
     
    lme = fitlme(table_allcon_thetastim_alpha,'freq_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
-%    [pVal_alpha(b),F_alhpa(b),DF1_alpha(b),DF2_alpha(b)] = coefTest(lme);
-%    [beta,betanames,stats] = fixedEffects(lme);
-%    p_con_alpha(b) = stats.pValue(2);
-%    p_win_alpha(b) = stats.pValue(3);
-%    p_con_win_alpha(b) = stats.pValue(4);
 
    stats = anova(lme);
    p_con_thetastim_alpha(samp) = stats.pValue(2);
    p_substage_thetastim_alpha(samp) = stats.pValue(3);
    p_con_substage_thetastim_alpha(samp) = stats.pValue(4);
 
-    
 end
-
 
 %% Thetastim - alpha freq - one-sampe t-tests
 
@@ -799,10 +733,8 @@ end
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
 
-% t = tiledlayout(2,2);
-% nexttile(1)
 
-for con = 8 %5:8
+for con = 5:8
 m_freq_change_thetastim_alpha_time_con = nanmean(freq_change_smoothed_thetastim_alpha(:,con,:),1);
 sem_freq_change_thetastim_alpha_time_con = nanstd(freq_change_smoothed_thetastim_alpha(:,con,:),1)./sqrt(size(freq_change_smoothed_thetastim_alpha,1));
 
@@ -815,32 +747,28 @@ hold on
 end
 
 
-% con = 5;
-% sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-0.9,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
-% hold on
+con = 5;
+sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-0.9,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
+hold on
 
-% con = 6;
-% sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
-% hold on
+con = 6;
+sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
+hold on
 
-% con = 7;
-% sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-1.1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
-% hold on
+con = 7;
+sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-1.1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
+hold on
 
 con = 8;
 sig_samps = find(p_thetastim_alpha(con,:) < 0.05);
 plot(sig_samps,ones(length(sig_samps),1,1)*-1.2,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
 hold on
 
-% sig_samps_lme = find(p_con_thetastim_alpha <= 0.05);
-% plot(sig_samps_lme,ones(length(sig_samps_lme),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
-
-% sig_samps_lme_peak_trough = find(p_thetastim_alpha_peak_trough <= 0.05);
-% plot(sig_samps_lme_peak_trough,ones(length(sig_samps_lme_peak_trough),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
-
+sig_samps_lme = find(p_con_thetastim_alpha <= 0.05);
+plot(sig_samps_lme,ones(length(sig_samps_lme),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
 
 xlim([501 6000]);
 xline(3000,'LineStyle','--','LineWidth',2);
@@ -849,7 +777,6 @@ xticks(1:1000:6000);
 xticklabels(0:2:12);
 xlabel('Time (s)');
 ylabel('Frequency change (%)');
-% title('9.9-11.8 Hz');
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 box off
 axis square
@@ -857,10 +784,7 @@ yline(-1.3,'LineWidth',2);
 title('7-12 Hz');
 
 
-saveas(fig,[Savefolder,'Figure4_thetastim_alpha_frequency_change_time.svg']);
-
-
-
+saveas(fig,[Savefolder,'Figure4L_thetastim_alpha_frequency_change_time.svg']);
 
 
 %% Time course - Thetastim - theta freq - Compare conditions using a lme 
@@ -881,7 +805,7 @@ for samp = 1:size(freq_change_smoothed_thetastim_theta,3)
 
     table_allcon_thetastim_theta = [];
     
-    for con = [5 7 8] %5:8
+    for con = 5:8
         
         sub_table = vertcat(sub',sub');
         cond = repmat(con,length(sub)*2,1);
@@ -897,18 +821,12 @@ for samp = 1:size(freq_change_smoothed_thetastim_theta,3)
     table_allcon_thetastim_theta.sub = categorical(table_allcon_thetastim_theta.sub);
     
    lme = fitlme(table_allcon_thetastim_theta,'freq_change ~ substage * condition + (1|sub)','FitMethod','REML','DummyVarCoding','effects');
-%    [pVal_alpha(b),F_alhpa(b),DF1_alpha(b),DF2_alpha(b)] = coefTest(lme);
-%    [beta,betanames,stats] = fixedEffects(lme);
-%    p_con_alpha(b) = stats.pValue(2);
-%    p_win_alpha(b) = stats.pValue(3);
-%    p_con_win_alpha(b) = stats.pValue(4);
 
    stats = anova(lme);
    p_con_thetastim_theta(samp) = stats.pValue(2);
    p_substage_thetastim_theta(samp) = stats.pValue(3);
    p_con_substage_thetastim_theta(samp) = stats.pValue(4);
 
-    
 end
 
 
@@ -941,9 +859,8 @@ end
 %% Thetastim - theta freq - Time course plot
 
 fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-% nexttile(3)
 
-for con = [5 7 8] %5:8
+for con = 5:8
 m_freq_change_thetastim_theta_time_con = nanmean(freq_change_smoothed_thetastim_theta(:,con,:),1);
 sem_freq_change_thetastim_theta_time_con = nanstd(freq_change_smoothed_thetastim_theta(:,con,:),1)./sqrt(size(freq_change_smoothed_thetastim_theta,1));
 
@@ -961,10 +878,10 @@ sig_samps = find(p_thetastim_theta(con,:) < 0.05);
 plot(sig_samps,ones(length(sig_samps),1,1)*-0.9,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
 hold on
 
-% con = 6;
-% sig_samps = find(p_thetastim_theta(con,:) < 0.05);
-% plot(sig_samps,ones(length(sig_samps),1,1)*-1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
-% hold on
+con = 6;
+sig_samps = find(p_thetastim_theta(con,:) < 0.05);
+plot(sig_samps,ones(length(sig_samps),1,1)*-1,'square','MarkerFaceColor',colors(con-4,:),'MarkerEdgeColor',colors(con-4,:),'MarkerSize',5);
+hold on
 
 con = 7;
 sig_samps = find(p_thetastim_theta(con,:) < 0.05);
@@ -979,28 +896,19 @@ hold on
 sig_samps_lme = find(p_con_thetastim_theta <= 0.05);
 plot(sig_samps_lme,ones(length(sig_samps_lme),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
 
-% sig_samps_lme_falling_rising = find(p_thetastim_theta_falling_rising <= 0.05);
-% plot(sig_samps_lme_falling_rising,ones(length(sig_samps_lme_falling_rising),1)*-1.4,'square','MarkerFaceColor','k','MarkerEdgeColor','k','MarkerSize',10);
-
-
 xlim([501 6000]);
 xline(3000,'LineStyle','--','LineWidth',2);
-% ylim([-1.5 1.5]);
 xticks(1:1000:6000);
 xticklabels(0:2:12);
 xlabel('Time (s)');
 ylabel('Frequency change (%)');
-% title('9.9-11.8 Hz');
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 box off
 axis square
 yline(-1.3,'LineWidth',2);
 title('4-7 Hz');
 
-% t.TileSpacing = 'tight';
-% t.Padding = 'compact';
-
-saveas(fig,[Savefolder,'Figure4_thetastim_theta_frequency_change_time.svg']);
+saveas(fig,[Savefolder,'Figure4L_thetastim_theta_frequency_change_time.svg']);
 
 
 

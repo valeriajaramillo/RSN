@@ -1,22 +1,15 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
-addpath(genpath('/user/HS301/m17462/matlab/ScientificColourMaps7'));
-addpath(genpath('/user/HS301/m17462/matlab/DataViz'));
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
-% load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_27-Mar-2023');
+% load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\freqalphatheta_allsub_23-Jan-2024');
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/freqalphatheta_allsub_23-Jun-2023.mat');
-
-
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/';
-% Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/topo_allsub_lapref/';
-
+Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Average across on and off blocks and calculate change
 
@@ -46,7 +39,6 @@ hold on
 ylim([min(layout.pos(:,2)) max(layout.pos(:,2))])
 xlim([min(layout.pos(:,1)) max(layout.pos(:,1))])
 
-load('/user/HS301/m17462/matlab/Scripts/RSN/preprocessing/sleep/chans.mat');
 
 for i = 1:128
 
@@ -108,28 +100,16 @@ neighbours = ft_prepare_neighbours(cfg);
 
 %% Alpha stim - Topo lme condition
 
-
 close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 1;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_condition > statsresult.p95_clus_condition
       if length(statsresult.WhichCh_1_max_condition) > statsresult.p95_clus_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -150,7 +130,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300);
@@ -160,19 +139,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -181,29 +147,17 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4_alphastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 2;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_condition > statsresult.p95_clus_condition
       if length(statsresult.WhichCh_1_max_condition) > statsresult.p95_clus_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -224,7 +178,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 8]);
@@ -234,19 +187,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-% 
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% colormap(flipud(brewermap(64,'RdBu')))
-% cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -255,31 +195,18 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4_alphastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %% Alpha stim - Topo lme substage
 
-close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 1;%:15
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
   
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_substage > statsresult.p95_clus_substage
       if length(statsresult.WhichCh_1_max_substage) > statsresult.p95_clus_substage
       PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage]; %find(pvalue_condition(band,:) < 0.05);
@@ -300,7 +227,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_substage,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 9]);
@@ -310,19 +236,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -331,30 +244,18 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_alphastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 2;%:15
     
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_substage > statsresult.p95_clus_substage
       if length(statsresult.WhichCh_1_max_substage) > statsresult.p95_clus_substage
       PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage]; %find(pvalue_condition(band,:) < 0.05);
@@ -375,8 +276,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
-
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_substage,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 9]);
@@ -386,19 +285,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -408,31 +294,18 @@ axis square
 title([band_name{band}])    
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_alphastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Alpha stim - Topo lme condition*substage
 
-close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 1; %:15
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_substage_condition > statsresult.p95_clus_substage_condition
       if length(statsresult.WhichCh_1_max_substage_condition) > statsresult.p95_clus_substage_condition
       PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -453,7 +326,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_substage_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 7]);
@@ -463,19 +335,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -484,30 +343,18 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_alphastim_topo_lme_substagecondition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 2; %:15
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_alphastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_substage_condition > statsresult.p95_clus_substage_condition
       if length(statsresult.WhichCh_1_max_substage_condition) > statsresult.p95_clus_substage_condition
       PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -528,7 +375,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_substage_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 7]);
@@ -538,19 +384,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -559,32 +392,19 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_alphastim_topo_lme_substagecondition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Theta stim - Topo lme condition
 
-close all
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 1;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
  
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_condition > statsresult.p95_clus_condition
       if length(statsresult.WhichCh_1_max_condition) > statsresult.p95_clus_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -605,7 +425,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 8]);
@@ -615,19 +434,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -636,31 +442,18 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4_thetastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 2;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_condition(band,:) < 0.05);
   if statsresult.clus_max_condition > statsresult.p95_clus_condition
       if length(statsresult.WhichCh_1_max_condition) > statsresult.p95_clus_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -681,7 +474,6 @@ PlotChans2 = [];
   else
         PlotChans2 = [];
   end
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),statsresult.Fvalue_condition,'mask',layout2.mask,'outline',layout2.outline, ...
     'interplim','mask','gridscale',300,'clim',[0 7]);
@@ -691,19 +483,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -712,31 +491,18 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4_thetastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %% Theta stim - Topo lme substage
 
-close all
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 1;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
   if statsresult.clus_max_substage > statsresult.p95_clus_substage
       if length(statsresult.WhichCh_1_max_substage) > statsresult.p95_clus_substage
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage]; %find(pvalue_condition(band,:) < 0.05);
@@ -766,20 +532,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% % PlotChans2 = find(pvalue_substage(band,:) < 0.05);
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -788,30 +540,18 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_thetastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 2;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
 
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
   if statsresult.clus_max_substage > statsresult.p95_clus_substage
       if length(statsresult.WhichCh_1_max_substage) > statsresult.p95_clus_substage
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage]; %find(pvalue_condition(band,:) < 0.05);
@@ -841,20 +581,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% % PlotChans2 = find(pvalue_substage(band,:) < 0.05);
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -863,32 +589,19 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_thetastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Theta stim - Topo lme substage *condition
 
-close all
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
-
 band = 1;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_alphafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
   if statsresult.clus_max_substage_condition > statsresult.p95_clus_substage_condition
       if length(statsresult.WhichCh_1_max_substage_condition) > statsresult.p95_clus_substage_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -918,20 +631,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% % PlotChans2 = find(pvalue_substage(band,:) < 0.05);
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -940,30 +639,18 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_thetastim_topo_lme_substage_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
-% close all
-% figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-hold on
 
 band = 2;
 
-load('/vol/research/nemo/datasets/RSN/data/analysis/frequency_allsub/statsresult/statsresult_thetastim_thetafreq.mat')
+load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
    
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
-% subplot(3,5,band)
-% hold on
-
-% ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),stat_bands_alpha(band,:),'mask',layout2.mask,'outline',layout2.outline, ...
-%     'interplim','mask','clim',[0 35],'gridscale',300);  
-
-load('EEG_chanlocs.mat');
-addpath(genpath('/user/HS301/m17462/matlab/kispi'));
 PlotChans = [2];
 PlotChans2 = [];
-% PlotChans2 = find(pvalue_substage(band,:) < 0.05);
   if statsresult.clus_max_substage_condition > statsresult.p95_clus_substage_condition
       if length(statsresult.WhichCh_1_max_substage_condition) > statsresult.p95_clus_substage_condition
         PlotChans2 = [PlotChans2 statsresult.WhichCh_1_max_substage_condition]; %find(pvalue_condition(band,:) < 0.05);
@@ -993,20 +680,6 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-% scatter(layout2.pos(2,1),layout2.pos(2,2),50,[0.6350 0.0780 0.1840],'x','LineWidth',2);
-% 
-% hold on
-% scatter(layout2.pos(PlotChans2,1),layout2.pos(PlotChans2,2),20,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
-
-% % PlotChans2 = find(pvalue_substage(band,:) < 0.05);
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans,'x',[0.6350 0.0780 0.1840],10,3});
-% hold on
-% topoplottest3(statsresult.Fvalue_substage_condition,EEG.chanlocs,'maplimits','minmax','conv','on','intrad',0.5,'gridscale',200,'electrodes','off','whitebk','on',...
-%     'emarker2',{PlotChans2,'o',[0.9098 0.4588 0.4275],5,2});
-% % ft_hastoolbox('brewermap', 1);         % ensure this toolbox is on the path
-% % colormap(flipud(brewermap(64,'RdBu')))
-% % cb = colorbar;
 load('lapaz.mat');
 colormap(lapaz)
 colorbar
@@ -1015,5 +688,5 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure4_thetastim_topo_lme_substage_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
