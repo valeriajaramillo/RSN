@@ -3,7 +3,9 @@
 
 ## Overview
 
-This repository contains scripts for the paper: **"Closed-loop auditory stimulation targeting alpha and theta oscillations during REM sleep induces phase-dependent power and frequency changes".** by Valeria Jaramillo, Henry Hebron, Sara Wong, Giuseppe Atzori, Ullrich Bartsch, Derk-Jan Dijk*, Ines R. Violante* (* contributed equally).
+This repository contains scripts for the paper: 
+**"Closed-loop auditory stimulation targeting alpha and theta oscillations during REM sleep induces phase-dependent power and frequency changes"** 
+by Valeria Jaramillo, Henry Hebron, Sara Wong, Giuseppe Atzori, Ullrich Bartsch, Derk-Jan Dijk*, Ines R. Violante* (* contributed equally).
 
 
 Preprint can be found here:
