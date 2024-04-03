@@ -29,8 +29,6 @@ head(KSS_data)
 KSS_data$ID <- factor(KSS_data$ID)
 KSS_data$daytime <- factor(KSS_data$daytime)
 
-head(KSS_data)
-
 
 # mean and SD
 
@@ -44,6 +42,8 @@ mean(KSS_mor)
 sd(KSS_mor)
 
 KSS_data$KSS <- factor(KSS_data$KSS, order = TRUE)
+
+head(KSS_data)
 
 
 # ---------- Multinomial logistic regression for KSS  ---------------------
