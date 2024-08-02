@@ -1,26 +1,27 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub_mICA_avref_12-Mar-2023.mat');
+load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/psd_allsub_mICA_avref_12-Mar-2023.mat');
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+
 
 %%
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub\statsresult\statsresult_alpha_7-8 Hz.mat');
+load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_alpha_7-8 Hz.mat');
 alpha_cluster_el1 = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub\statsresult\statsresult_alpha_10-11 Hz.mat');
+load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_alpha_10-11 Hz.mat');
 alpha_cluster_el2 = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
 alpha_cluster_combined = unique([alpha_cluster_el1,alpha_cluster_el2]);
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub\statsresult\statsresult_theta_7-8 Hz.mat');
+load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_theta_7-8 Hz.mat');
 theta_cluster_el = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
@@ -252,7 +253,11 @@ for con = 5:8
     
 %     shadedErrorBar(f,mpsd_ONOFF_change(con,:),sem_psd_ONOFF_change(con,:),'lineProps',{'Color',colors(con-4,:),'LineWidth',1},'patchSaturation',.3);
     plot(f,m_npsd_ONOFF_change(con,:),'Color',colors(con-4,:),'LineWidth',7);
+    
     hold on
+    
+    errorbar(11.3+(con-4)/4,-7,nanmean(sem_npsd_ONOFF_change(con,:),2),'Color',colors(con-4,:),'LineWidth',3);
+
    
 end
 

@@ -1,14 +1,14 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
 
 %% Load file
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\phase_allsub_mICA_avref_alphathetafilt03-Aug-2023.mat');
+load('/parallel_scratch/nemo/RSN/analysis/analysis/phase_allsub/phase_allsub_mICA_avref_alphathetafilt_notecht_19-Jun-2024.mat');
 
 incl_sub = setdiff(1:19,12);
 
@@ -20,7 +20,9 @@ ch = 2;
 
 colors = linspecer(4);
 
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig.WindowState = 'maximized';
+
 for con = 1:4
     
     for sub = 1:length(incl_sub)
@@ -31,17 +33,19 @@ for con = 1:4
     end
     
     polarplot([0 circ_mean(m_alphafilt(incl_sub,ch,con))],[0 nanmean(r_alphafilt(incl_sub,ch,con))],'Color',colors(con,:),'LineWidth',5)
-    rlim([0 0.9])
+    rlim([0 0.5])
    
 end
 
   set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
   
-saveas(gcf,[Savefolder,'Figure3D_polarplot_alpha_allsub.svg']);
+saveas(gcf,[Savefolder,'Figure3D_polarplot_alpha_allsub_notecht.svg']);
 
 %% Theta stim - alphafilt
 
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig.WindowState = 'maximized';
+
 for con = 5:8
     
     for sub = 1:length(incl_sub)
@@ -53,14 +57,14 @@ for con = 5:8
     end
     
     polarplot([0 circ_mean(m_alphafilt(incl_sub,ch,con))],[0 nanmean(r_alphafilt(incl_sub,ch,con))],'Color',colors(con-4,:),'LineWidth',5)
-    rlim([0 0.9])
+    rlim([0 0.5])
 
 end
 
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure4C_polarplot_thetastim_alphafilt_allsub.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure4C_polarplot_thetastim_alphafilt_allsub_notecht.svg']);
 
 
 %% Theta stim - thetafilt
@@ -68,7 +72,9 @@ ch = 2;
 
 colors = linspecer(4);
 
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig.WindowState = 'maximized';
+
 for con = 5:8
     
     for sub = 1:length(incl_sub)
@@ -80,18 +86,20 @@ for con = 5:8
     end
     
     polarplot([0 circ_mean(m_thetafilt(incl_sub,ch,con))],[0 nanmean(r_thetafilt(incl_sub,ch,con))],'Color',colors(con-4,:),'LineWidth',5)
-    rlim([0 0.9])
+    rlim([0 0.5])
 
 end
 
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
 
-saveas(gcf,[Savefolder,'Figure3I_polarplot_theta_allsub.svg']);
+saveas(gcf,[Savefolder,'Figure3I_polarplot_theta_allsub_notecht.svg']);
 
 %% Alpha stim - thetafilt
 
-figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
+fig.WindowState = 'maximized';
+
 for con = 1:4
     
     for sub = 1:length(incl_sub)
@@ -102,12 +110,12 @@ for con = 1:4
     end
     
     polarplot([0 circ_mean(m_thetafilt(incl_sub,ch,con))],[0 nanmean(r_thetafilt(incl_sub,ch,con))],'Color',colors(con,:),'LineWidth',5)
-    rlim([0 0.9])
+    rlim([0 0.5])
 end
 
 set(gca,'Fontsize',35,'TickDir','out','LineWidth',3);
 
-saveas(gcf,[Savefolder,'Suppl_Figure4A_polarplot_alphastim_thetafilt_allsub.svg']);
+saveas(gcf,[Savefolder,'Suppl_Figure4A_polarplot_alphastim_thetafilt_allsub_notecht.svg']);
 
 %%
 

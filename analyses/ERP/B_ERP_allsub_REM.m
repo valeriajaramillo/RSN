@@ -1,19 +1,19 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
+% addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
+% addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
+% 
+% addpath /user/HS301/m17462/matlab/Henry/useful_functions
+% addpath /user/HS301/m17462/matlab/colorGradient
+% 
+% addpath('/user/HS301/m17462/matlab/eBOSC/external/BOSC/')
 
-addpath /user/HS301/m17462/matlab/Henry/useful_functions
-addpath /user/HS301/m17462/matlab/colorGradient
-
-addpath('/user/HS301/m17462/matlab/eBOSC/external/BOSC/')
-
-erpfolder = '/vol/research/nemo/datasets/RSN/data/analysis/erp_allsub/';
+erpfolder = '/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/';
 
 %% Load data
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
+Folderpath = '/parallel_scratch/nemo/RSN/hdEEG/';
 sub_Folderpath = dir([Folderpath,'RSN*']);
 
 dt = 1;

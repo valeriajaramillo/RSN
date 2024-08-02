@@ -45,5 +45,3 @@ for s = 1:length(sub_Folderpath)
 end  
 
 save([Savefolder,'ERP_ntrials_allsub.mat'],'ERPs*')
-
-

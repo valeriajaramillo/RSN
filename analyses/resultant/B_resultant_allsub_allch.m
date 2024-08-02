@@ -1,14 +1,13 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
+addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
+Folderpath = '/parallel_scratch/nemo/RSN/hdEEG/';
 sub_Folderpath = dir([Folderpath,'RSN*']);
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/phase_allsub/';
+Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/phase_allsub/';
 
 %% Load nm data
 
@@ -35,9 +34,10 @@ for s = 1:length(sub_Folderpath)
 
     for con = 1:length(nm.psd_ON)
         
-%         stimphase_good_con = nm.stimphase_good{con}; % psd: bins x ep x trials x ch
         stimphase_good_alphafilt_con = nm.stimphase_good_alphafilt{con}; % psd: bins x ep x trials x ch
         stimphase_good_thetafilt_con = nm.stimphase_good_thetafilt{con}; % psd: bins x ep x trials x ch
+%         stimphase_good_alphafilt_con = nm.stimphase_good_alphafilt_notecht{con}; % psd: bins x ep x trials x ch
+%         stimphase_good_thetafilt_con = nm.stimphase_good_thetafilt_notecht{con}; % psd: bins x ep x trials x ch
 
 
         for ch = 1:size(stimphase_good_alphafilt_con,1)
@@ -87,14 +87,14 @@ if ~exist(Savefolder)
    mkdir(Savefolder) 
 end
 
-% save([Savefolder,'phase_allsub_mICA_avref_',date,'.mat'],'r','m','std');
-save([Savefolder,'phase_allsub_mICA_avref_alphathetafilt',date,'.mat'],'r_alphafilt','m_alphafilt','std_alphafilt','r_thetafilt','m_thetafilt','std_thetafilt');
+save([Savefolder,'phase_allsub_mICA_avref_',date,'.mat'],'r_alphafilt','m_alphafilt','std_alphafilt','r_thetafilt','m_thetafilt','std_thetafilt');
+% save([Savefolder,'phase_allsub_mICA_avref_alphathetafilt_notecht_',date,'.mat'],'r_alphafilt','m_alphafilt','std_alphafilt','r_thetafilt','m_thetafilt','std_thetafilt');
 
 %%
 ch = 2;
 
-r_alpha = squeeze(nanmean(r(:,ch,1:4),3));
-r_theta = squeeze(nanmean(r(:,ch,5:8),3));
+r_alpha = squeeze(nanmean(r_alphafilt(:,ch,1:4),3));
+r_theta = squeeze(nanmean(r_thetafilt(:,ch,5:8),3));
 
 m_r_alpha = nanmean(r_alpha);
 m_r_theta = nanmean(r_theta);

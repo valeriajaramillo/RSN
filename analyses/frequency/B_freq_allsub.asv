@@ -107,15 +107,15 @@ for s = 1:length(sub_Folderpath)
      art_trial = nm.art_trialndx{con};
      art_trialndx = find(art_trial == 1);
      good_trialndx = setdiff(1:length(ON_start_all),art_trialndx);
-%      nm.good_trialndx{con} = good_trialndx;
+     nm.good_trialndx{con} = good_trialndx;
 
 %         art_trialndx = find(nm.art_trialndx{con} == 1);
 %         art_trialndx_new = find(nm.art_trialndx{con} == 1);
 %         good_trialndx = nm.good_trialndx{con};
 %         good_trialndx_new = nm.good_trialndx_new{con};
         
-%      phasic_trial = zeros(length(ON_start_all),1);
-%      tonic_trial = zeros(length(ON_start_all),1);
+     phasic_trial = zeros(length(ON_start_all),1);
+     tonic_trial = zeros(length(ON_start_all),1);
 %      
 %      
      for t = 1:length(ON_start_all)
@@ -127,11 +127,11 @@ for s = 1:length(sub_Folderpath)
          ifq_trials_alpha(t,:,:) = freq_allnight_alpha(:,trial_samps);
          ifq_trials_theta(t,:,:) = freq_allnight_theta(:,trial_samps);
 
-%             if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
-%                 tonic_trial(t) = 1;
-%             elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
-%                 phasic_trial(t) = 1;   
-%             end
+            if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
+                tonic_trial(t) = 1;
+            elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
+                phasic_trial(t) = 1;   
+            end
                         
          end
           
@@ -139,10 +139,6 @@ for s = 1:length(sub_Folderpath)
 %      
 %      phasic_goodtrialndx = intersect(find(phasic_trial == 1),good_trialndx);
 %      tonic_goodtrialndx = intersect(find(tonic_trial == 1),good_trialndx);
-
-    phasic_goodtrialndx = nm.phasic_goodtrialndx{con};
-    tonic_goodtrialndx = nm.tonic_goodtrialndx{con};
-    
 %      
 % %      nm.phasic_goodtrialndx{con} = phasic_goodtrialndx;
 % %      nm.tonic_goodtrialndx{con} = tonic_goodtrialndx;     

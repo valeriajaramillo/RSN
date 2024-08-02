@@ -46,6 +46,3 @@ for s = 1:length(sub_Folderpath)
 end  
 
 save([Savefolder,'nm_ntrials_allsub.mat'],'nm_ntrials_all','nm_ntrials_phasic','nm_ntrials_tonic','nm_ntrials_bins','nm_perc_trials_bins')
-
-
-

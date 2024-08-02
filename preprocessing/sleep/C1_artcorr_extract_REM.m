@@ -3,7 +3,7 @@ close all;
 
 %% Define folders
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_013/';
+Folderpath = '/parallel_scratch/nemo/RSN/hdEEG/RSN_001/';
 
 %%
 Folderpath_dir = dir([Folderpath,'*_sleep_fil.set']);

@@ -1,14 +1,13 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
-addpath(genpath('/user/HS301/m17462/matlab/Scripts/RSN'));
-addpath(genpath('/user/HS301/m17462/matlab/Henry/useful_functions'));
+addpath(genpath('/users/nemo/software/eeglab'));
+addpath(genpath('/users/nemo/projects/RSN'));
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
+Folderpath = '/parallel_scratch/nemo/RSN/hdEEG/';
 sub_Folderpath = dir([Folderpath,'RSN*']);
 
-Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/psd_allsub/';
+Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/';
 
 %% Load nm data
 
@@ -16,7 +15,7 @@ for s = 1:length(sub_Folderpath)
     
     display(sub_Folderpath(s).name);
 
-    nm_good_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_nm_good_psd_allch.mat']);
+    nm_good_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_nm_good_psd_allch_OFFONOFF.mat']);
     load([Folderpath,sub_Folderpath(s).name,filesep,nm_good_file(1).name]);
     
     %%
@@ -64,8 +63,9 @@ for s = 1:length(sub_Folderpath)
     
     art_trial = nm.art_trialndx{con};
     art_trialndx = find(art_trial == 1);
-    good_trialndx = setdiff(1:length(ON_start_all),art_trialndx);
-    nm.good_trialndx{con} = good_trialndx;
+%     good_trialndx = setdiff(1:length(ON_start_all),art_trialndx);
+%     nm.good_trialndx{con} = good_trialndx;
+    good_trialndx = nm.good_trialndx{con};
 
 %      art_trialndx = find(nm.art_trialndx{con} == 1);
 %      art_trialndx_new = find(nm.art_trialndx{con} == 1);
@@ -73,61 +73,64 @@ for s = 1:length(sub_Folderpath)
 %      good_trialndx_new = nm.good_trialndx_new{con};
 %     
      %% calculate phasic/tonic trial ndx (no rejtrials)
-     phasic_trial = zeros(length(ON_start_all),1);
-     tonic_trial = zeros(length(ON_start_all),1);
+%      phasic_trial = zeros(length(ON_start_all),1);
+%      tonic_trial = zeros(length(ON_start_all),1);
+%      
+%      for t = 1:length(ON_start_all)
+%          
+%          if ~ismember(t,art_trialndx)
+%          
+%          dt = 6;
+%          trial_samps = ON_start_all(t)-dt*fs:ON_start_all(t)+dt*fs-1;
+% 
+%             if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
+%                 tonic_trial(t) = 1;
+%             elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
+%                 phasic_trial(t) = 1;   
+%             end
+%                         
+%          end
+%           
+%      end
      
-     for t = 1:length(ON_start_all)
-         
-         if ~ismember(t,art_trialndx)
-         
-         dt = 6;
-         trial_samps = ON_start_all(t)-dt*fs:ON_start_all(t)+dt*fs-1;
+%      phasic_goodtrialndx = intersect(find(phasic_trial == 1),good_trialndx);
+%      tonic_goodtrialndx = intersect(find(tonic_trial == 1),good_trialndx);
+%      
+%      nm.phasic_goodtrialndx{con} = phasic_goodtrialndx;
+%      nm.tonic_goodtrialndx{con} = tonic_goodtrialndx;     
+%      nm.ntrials_phasic{con} = length(phasic_goodtrialndx);
+%      nm.ntrials_tonic{con} = length(tonic_goodtrialndx);
+     
+%      if ~ nm.ntrials_phasic{con} + nm.ntrials_tonic{con} + length(art_trialndx) == length(ON_start_all)
+%         warning('trials have not been assigned to tonic/phasic/artefact') ;
+%      end
+%      
+%      clear tonic_trial phasic_trial
 
-            if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
-                tonic_trial(t) = 1;
-            elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
-                phasic_trial(t) = 1;   
-            end
-                        
-         end
-          
-     end
-     
-     phasic_goodtrialndx = intersect(find(phasic_trial == 1),good_trialndx);
-     tonic_goodtrialndx = intersect(find(tonic_trial == 1),good_trialndx);
-     
-     nm.phasic_goodtrialndx{con} = phasic_goodtrialndx;
-     nm.tonic_goodtrialndx{con} = tonic_goodtrialndx;     
-     nm.ntrials_phasic{con} = length(phasic_goodtrialndx);
-     nm.ntrials_tonic{con} = length(tonic_goodtrialndx);
-     
-     if ~ nm.ntrials_phasic{con} + nm.ntrials_tonic{con} + length(art_trialndx) == length(ON_start_all)
-        warning('trials have not been assigned to tonic/phasic/artefact') ;
-     end
-     
-     clear tonic_trial phasic_trial
-     
+    phasic_goodtrialndx = nm.phasic_goodtrialndx{con};
+    tonic_goodtrialndx = nm.tonic_goodtrialndx{con};
+    
       %% calculate phasic/tonic trial ndx (rejtrials)
-     phasic_trial = zeros(length(ON_start_all),1);
-     tonic_trial = zeros(length(ON_start_all),1);
-     
-     
-     for t = 1:length(ON_start_all)
-         
-         if ~ismember(t,art_trialndx)
-         
-         dt = 6;
-         trial_samps = ON_start_all(t)-dt*fs:ON_start_all(t)+dt*fs-1;
-
-            if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
-                tonic_trial(t) = 1;
-            elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
-                phasic_trial(t) = 1;   
-            end
-                        
-         end
-          
-     end
+%      phasic_trial = zeros(length(ON_start_all),1);
+%      tonic_trial = zeros(length(ON_start_all),1);
+%      
+%      
+%      for t = 1:length(ON_start_all)
+%          
+%          if ~ismember(t,art_trialndx)
+%          
+%          dt = 6;
+%          trial_samps = ON_start_all(t)-dt*fs:ON_start_all(t)+dt*fs-1;
+% 
+%             if length(intersect(trial_samps,tonic_goodsamp2)) == 2*dt*fs
+%                 tonic_trial(t) = 1;
+%             elseif length(intersect(trial_samps,phasic_goodsamp2)) > 0
+%                 phasic_trial(t) = 1;   
+%             end
+%                         
+%          end
+%           
+%      end
      
 %      phasic_goodtrialndx_new = intersect(find(phasic_trial == 1),good_trialndx_new);
 %      tonic_goodtrialndx_new = intersect(find(tonic_trial == 1),good_trialndx_new);
@@ -181,4 +184,4 @@ for s = 1:length(sub_Folderpath)
 end
 
 
-save([Savefolder,'psd_allsub_mICA_avref_',date,'.mat'],'mpsd_con_ch','mpsd_con_ch_phasic','mpsd_con_ch_tonic','ntrials','ntrials_phasic','ntrials_tonic','f');
+save([Savefolder,'psd_allsub_mICA_avref_OFFONOFF',date,'.mat'],'mpsd_con_ch','mpsd_con_ch_phasic','mpsd_con_ch_tonic','ntrials','ntrials_phasic','ntrials_tonic','f');

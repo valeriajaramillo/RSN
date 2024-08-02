@@ -91,7 +91,7 @@ p_reg_theta = mdl_theta.Coefficients(2,4)
 r_squared_theta = mdl_theta.Rsquared.Ordinary
 intercept_theta = mdl_theta.Coefficients(1,1);
 slope_theta = mdl_theta.Coefficients(2,1);
-slope_SE_theta = mdl_theta.Coefficients(2,2)
+slope_SE_alpha = mdl_alpha.Coefficients(2,2)
 
 
 %    fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])

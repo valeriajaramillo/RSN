@@ -1,10 +1,10 @@
 clear all;
 close all;
 
-addpath(genpath('/user/HS301/m17462/matlab/eeglab'));
+addpath(genpath('/users/nemo/software/eeglab'));
 
 
-Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/RSN_024/';
+Folderpath = '/parallel_scratch/nemo/RSN/hdEEG/RSN_001/';
 
 czref_file = dir([Folderpath,'*sleep*czref.set']);
 manual_ICA_file = dir([Folderpath,'ICA2/','*czref_goodREM_ICA_manual_ICA.set']);
@@ -28,7 +28,7 @@ EEG = pop_saveset(EEG, 'filename', [czref_file(1).name(1:end-4),'_mICA'], 'filep
 EEG.nbchan = EEG.nbchan+1;
 EEG.data(end+1,:) = zeros(1, EEG.pnts);
 EEG.chanlocs(1,EEG.nbchan).labels = 'Cz';
-EEG = pop_chanedit(EEG, 'lookup','/user/HS301/m17462/matlab/Scripts/RSN/preprocessing/sleep/standard_1005.elc','eval','chans = pop_chancenter( chans, [],[]);');
+EEG = pop_chanedit(EEG, 'lookup','/users/nemo/software/eeglab/plugins/Fieldtrip-lite20210601/template/electrode/standard_1005.elc','eval','chans = pop_chancenter( chans, [],[]);');
 
 originaleeg = EEG;
 

@@ -1,17 +1,17 @@
 clear all;
 close all;
 
-addpath(genpath('S:\projects\RSN\matlab\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
+addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('/users/nemo/software/DataViz'));  % Dataviz toolbox, see README on where to find this
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ERP_ntrials_allsub.mat')
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\nm_ntrials_allsub.mat')
+load('/parallel_scratch/nemo/RSN/analysis/analysis/ntrials_vol/ERP_ntrials_allsub_13-Jun-2024.mat')
+load('/parallel_scratch/nemo/RSN/analysis/analysis/ntrials_vol/nm_ntrials_allsub_12-Jun-2024.mat')
 
 incl_sub = setdiff(1:19,12);
 
 bins = {'All' '1st third' '2nd third' '3rd third'};
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
 
 %%
 
@@ -73,7 +73,7 @@ xtickangle(45);
 box off
 axis square
 
-saveas(fig,[Savefolder,'Figure1D_Number_of_trials_AEPs.svg']);
+% saveas(fig,[Savefolder,'Figure1D_Number_of_trials_AEPs.svg']);
 
 %% Alpha and Theta boxplot
 
@@ -133,7 +133,7 @@ xtickangle(45);
 box off
 axis square
 
-saveas(fig,[Savefolder,'Figure1D_Number_of_trials_CLAS.svg']);
+% saveas(fig,[Savefolder,'Figure1D_Number_of_trials_CLAS.svg']);
 
 
 
@@ -182,7 +182,7 @@ box off
 axis square
 ylim([0 60]);
 
-saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_alpha_thirds.svg']);
 
 %% Theta thirds
 
@@ -229,7 +229,168 @@ box off
 axis square
 ylim([0 60]);
 
-saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure1_Number_of_trials_CLAS_theta_thirds.svg']);
 
 
+
+
+%% Stats alpha
+
+ntrials_all = nm_ntrials_all;
+ntrials_phasic = nm_ntrials_phasic;
+ntrials_tonic = nm_ntrials_tonic;
+ntrials_bins = nm_ntrials_bins;
+
+% all
+ntrials_all_table = vertcat(nm_ntrials_all(incl_sub,1),ntrials_all(incl_sub,2),ntrials_all(incl_sub,3),ntrials_all(incl_sub,4));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_all = table(sub_table,cond,ntrials_all_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_all.sub = categorical(table_ntrials_all.sub);
+table_ntrials_all.condition = categorical(table_ntrials_all.condition);
+    
+lme_ntrials_all = fitlme(table_ntrials_all,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_all);
+p_ntrials_all = stats.pValue(2);
+F_ntrials_all = stats.FStat(2);
+
+
+% phasic
+ntrials_phasic_table = vertcat(ntrials_phasic(incl_sub,1),ntrials_phasic(incl_sub,2),ntrials_phasic(incl_sub,3),ntrials_phasic(incl_sub,4));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_phasic = table(sub_table,cond,ntrials_phasic_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_phasic.sub = categorical(table_ntrials_phasic.sub);
+table_ntrials_phasic.condition = categorical(table_ntrials_phasic.condition);
+    
+lme_ntrials_phasic = fitlme(table_ntrials_phasic,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_phasic);
+p_ntrials_phasic = stats.pValue(2);
+F_ntrials_phasic = stats.FStat(2);
+
+%% Stats alpha - across night
+
+% 1st bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,1,1),ntrials_bins(incl_sub,2,1),ntrials_bins(incl_sub,3,1),ntrials_bins(incl_sub,4,1));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin1 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin1.sub = categorical(table_ntrials_bin1.sub);
+table_ntrials_bin1.condition = categorical(table_ntrials_bin1.condition);
+    
+lme_ntrials_bin1 = fitlme(table_ntrials_bin1,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin1);
+p_ntrials_bin1 = stats.pValue(2);
+F_ntrials_bin1 = stats.FStat(2);
+
+
+% 2nd bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,1,2),ntrials_bins(incl_sub,2,2),ntrials_bins(incl_sub,3,2),ntrials_bins(incl_sub,4,2));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin2 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin2.sub = categorical(table_ntrials_bin2.sub);
+table_ntrials_bin2.condition = categorical(table_ntrials_bin2.condition);
+    
+lme_ntrials_bin2 = fitlme(table_ntrials_bin2,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin2);
+p_ntrials_bin2 = stats.pValue(2);
+F_ntrials_bin2 = stats.FStat(2);
+
+
+% 3rd bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,1,3),ntrials_bins(incl_sub,2,3),ntrials_bins(incl_sub,3,3),ntrials_bins(incl_sub,4,3));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin3 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin3.sub = categorical(table_ntrials_bin3.sub);
+table_ntrials_bin3.condition = categorical(table_ntrials_bin3.condition);
+    
+lme_ntrials_bin3 = fitlme(table_ntrials_bin3,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin3);
+p_ntrials_bin3 = stats.pValue(2);
+F_ntrials_bin3 = stats.FStat(2);
+
+%% Stats theta
+
+% all
+ntrials_all_table = vertcat(ntrials_all(incl_sub,5),ntrials_all(incl_sub,6),ntrials_all(incl_sub,7),ntrials_all(incl_sub,8));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_all = table(sub_table,cond,ntrials_all_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_all.sub = categorical(table_ntrials_all.sub);
+table_ntrials_all.condition = categorical(table_ntrials_all.condition);
+    
+lme_ntrials_all = fitlme(table_ntrials_all,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_all);
+p_ntrials_all_theta = stats.pValue(2);
+F_ntrials_all_theta = stats.FStat(2);
+
+
+% phasic
+ntrials_phasic_table = vertcat(ntrials_phasic(incl_sub,5),ntrials_phasic(incl_sub,6),ntrials_phasic(incl_sub,7),ntrials_phasic(incl_sub,8));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_phasic = table(sub_table,cond,ntrials_phasic_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_phasic.sub = categorical(table_ntrials_phasic.sub);
+table_ntrials_phasic.condition = categorical(table_ntrials_phasic.condition);
+    
+lme_ntrials_phasic = fitlme(table_ntrials_phasic,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_phasic);
+p_ntrials_phasic_theta = stats.pValue(2);
+F_ntrials_phasic_theta = stats.FStat(2);
+
+
+%% Stats theta- across night
+
+% 1st bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,5,1),ntrials_bins(incl_sub,6,1),ntrials_bins(incl_sub,7,1),ntrials_bins(incl_sub,8,1));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin1 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin1.sub = categorical(table_ntrials_bin1.sub);
+table_ntrials_bin1.condition = categorical(table_ntrials_bin1.condition);
+    
+lme_ntrials_bin1 = fitlme(table_ntrials_bin1,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin1);
+p_ntrials_bin1_theta = stats.pValue(2);
+F_ntrials_bin1_theta = stats.FStat(2);
+
+
+% 2nd bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,5,2),ntrials_bins(incl_sub,6,2),ntrials_bins(incl_sub,7,2),ntrials_bins(incl_sub,8,2));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin2 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin2.sub = categorical(table_ntrials_bin2.sub);
+table_ntrials_bin2.condition = categorical(table_ntrials_bin2.condition);
+    
+lme_ntrials_bin2 = fitlme(table_ntrials_bin2,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin2);
+p_ntrials_bin2_theta = stats.pValue(2);
+F_ntrials_bin2_theta = stats.FStat(2);
+
+
+% 3rd bin
+ntrials_bins_table = vertcat(ntrials_bins(incl_sub,5,3),ntrials_bins(incl_sub,6,3),ntrials_bins(incl_sub,7,3),ntrials_bins(incl_sub,8,3));
+cond = vertcat(repmat(1,length(incl_sub),1),repmat(2,length(incl_sub),1),repmat(3,length(incl_sub),1),repmat(4,length(incl_sub),1));
+
+sub_table = vertcat(incl_sub',incl_sub',incl_sub',incl_sub');
+table_ntrials_bin3 = table(sub_table,cond,ntrials_bins_table,'VariableNames',{'sub','condition','ntrials'});
+table_ntrials_bin3.sub = categorical(table_ntrials_bin3.sub);
+table_ntrials_bin3.condition = categorical(table_ntrials_bin3.condition);
+    
+lme_ntrials_bin3 = fitlme(table_ntrials_bin3,'ntrials ~ condition +(1|sub)','FitMethod','REML','DummyVarCoding','effects');
+stats = anova(lme_ntrials_bin3);
+p_ntrials_bin3_theta = stats.pValue(2);
+F_ntrials_bin3_theta = stats.FStat(2);
 
