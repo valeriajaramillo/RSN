@@ -149,13 +149,19 @@ make figures, run after analyses
 **Figure3C_3H_eBOSC_frequency_corr_nwaves**: plot correlation scatter plot between individual oscillation peak frequency and peak stimulation frequency  
 **Figure3D_3I_polarhistogram**: plot polar histogram of mean phase and resultant across participants  
 **Figure3E_3J_resultant_topo**: plot resultant for each electrode across scalp, test non-uniformity across circle  
-**Figure4A_4G_Suppl_Figure5-9and12-17_Power_ON_OFF_allsub_topo_boxplots**: plot topography of power change lme F-values and significant electrode clusters  
+**Figure4A_4G_Suppl_Figure5-9and13-18_Power_ON_OFF_allsub_topo_boxplots**: plot topography of power change lme F-values and significant electrode clusters  
 **Figure4B_4C_Power_ON_OFF_change_psd_phasictonic_alpha**: plot power changes across spectrum for alpha CLAS  
-**Figure4D_4J_Suppl_Figure10and18_Frequency_ON_OFF_allsub_topo**: plot topography of frequency change lme F-values and significant electrode clusters  
+**Figure4D_4J_Suppl_Figure11and19_Frequency_ON_OFF_allsub_topo**: plot topography of frequency change lme F-values and significant electrode clusters  
 **Figure4E-F_4K-L_Frequency_ON_OFF_change_boxplots_time**: make boxplots for frequency change and plot frequency change over time across different conditions  
-**Figure4H_4I_Power_ON_OFF_change_psd_phasictonic_theta**: plot power changes across spectrum for theta CLAS  
-**Suppl_Figure3_ISI_autocorr**: plot autocorrelation across ISI's  
-**Suppl_Figure11_19_connectivity**: plot topography of connectivity change lme F-values and significant electrode clusters, plot significant connections and boxplots for different conditions  
+**Figure4H_4I_Power_ON_OFF_change_psd_phasictonic_theta**: plot power changes across spectrum for theta CLAS
+**Rev_Suppl_Figure3_2_ERPs_phase_reset_nm_alpha**: for reviewer (not included in manuscript), plot ERP across all stimuli of alpha CLAS  
+**Rev_Suppl_Figure3_2_ERPs_phase_reset_nm_theta**: for reviewer (not included in manuscript), plot ERP across all stimuli of theta CLAS  
+**Suppl_Figure3_ISI_autocorr**: plot autocorrelation across ISI's
+**Suppl_Figure10_TF_Power_ON_OFF_change_psd_phasictonic_alpha**: Time-frequency plot of power changes across OFF-ON-OFF windows for alpha CLAS  
+**Suppl_Figure10_TF_Power_ON_OFF_change_psd_phasictonic_theta**: Time-frequency plot of power changes across OFF-ON-OFF windows for theta CLAS  
+**Suppl_Figure12_20_connectivity**: plot topography of connectivity change lme F-values and significant electrode clusters, plot significant connections and boxplots for different conditions  
+**Suppl_Figure21_ERPs_phase_reset_alpha**: plots for phase-reset analysis (alpha-filtered), plot ERPs and phases from AEP block for stimuli delivered at orthogonal phases, calculate phase-reset and evaluate amplitude-dependency
+**Suppl_Figure22_ERPs_phase_reset_theta**: plots for phase-reset analysis (theta-filtered), plot ERPs and phases from AEP block for stimuli delivered at orthogonal phases, calculate phase-reset and evaluate amplitude-dependency
 **Suppl_Table1_questionnaires**: make table for KSS and VAMS changes from evening to morning  
 
 
