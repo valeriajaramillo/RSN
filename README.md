@@ -85,6 +85,12 @@ perform AEP analyses for REM and wake data, run in order A-B
 **B_ERP_allsub_REM**: save AEP REM data for all participants  
 **B_ERP_allsub_wake**: save AEP wake data for all participants 
 
+### ERP_nm
+perform ERP analyses for CLAS data, run in order A-B (for reviewer, not included in manuscript)
+
+**A_ERP_nm**: extract CLAS trial data for each participant  
+**B_ERP_nm_allsub**: save CLAS trial data for all participants  
+
 ### connectivity
 perform connectivity analyses, run in order A-D
 
