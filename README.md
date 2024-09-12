@@ -10,10 +10,10 @@ This repository contains scripts for the paper:
 by Valeria Jaramillo, Henry Hebron, Sara Wong, Giuseppe Atzori, Ullrich Bartsch, Derk-Jan Dijk*, Ines R. Violante* (* contributed equally).  
 
 
-Preprint can be found here:
-[biorxiv DOI](https://doi.org/10.1101/2024.03.03.582907)
+Journal article has been published in SLEEP and can be found here:
+[SLEEP DOI](https://doi.org/10.1093/sleep/zsae193)
 
-Raw data and data to create the figures can be found here:
+Raw data, sleep scoring, and data to create the figures can be found here:
 [Zenodo DOI](10.5281/zenodo.10663994)
 
 
