@@ -1,26 +1,21 @@
 clear all;
 close all;
 
-% addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-% addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-% addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
-% addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
-% 
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
-addpath(genpath('/users/nemo/software/eeglab'));
-addpath /users/nemo/software/Henry/useful_functions
-addpath(genpath('/users/nemo/software/ScientificColourMaps7'));
-addpath(genpath('/users/nemo/software/DataViz'));
 
 % load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/freqalphatheta_allsub_23-Jan-2024');
 % ifq_old = ifq;
 % clear ifq
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/freqalphatheta_allsub_27-May-2024.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4E_freqalphatheta_allsub_27-May-2024.mat');
 % ifq_new = ifq;
 % clear ifq
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Average across on and off blocks and calculate change
 
@@ -41,22 +36,22 @@ colors = linspecer(4);
 %%
 
 % load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
-load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/statsresult/statsresult_alphastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
 alphastim_alpha_cluster_el = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
 % load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
-load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/statsresult/statsresult_alphastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
 alphastim_theta_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_3_max_condition]; 
 clear statsresult
 
 % load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
-load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/statsresult/statsresult_thetastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
 thetastim_alpha_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_2_max_condition]; 
 clear statsresult
 
 % load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
-load('/parallel_scratch/nemo/RSN/analysis/analysis/frequency_allsub/statsresult/statsresult_thetastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
 thetastim_theta_cluster_el = [statsresult.WhichCh_1_max_condition statsresult.WhichCh_2_max_condition]; 
 clear statsresult
 
@@ -284,7 +279,7 @@ box off
 axis square
 ylim([-3 4]);
 
-saveas(gcf,[Savefolder,'Figure4E_InstFreq_boxplot_conditions_alphastim','.svg']);
+% saveas(gcf,[Savefolder,'Figure4E_InstFreq_boxplot_conditions_alphastim','.svg']);
 
 %% thetastim - alpha band 
 
@@ -422,7 +417,7 @@ box off
 axis square
 ylim([-3 4]);
 
-saveas(gcf,[Savefolder,'Figure4K_InstFreq_boxplot_conditions_thetastim','.svg']);
+% saveas(gcf,[Savefolder,'Figure4K_InstFreq_boxplot_conditions_thetastim','.svg']);
 
 %% Time course - Alphastim - alpha freq - Compare conditions using a lme - OFF to ON
 
@@ -554,7 +549,7 @@ axis square
 yline(-1.3,'LineWidth',2);
 title('7-12 Hz');
 
-saveas(fig,[Savefolder,'Figure4F_alphastim_alpha_frequency_change_time.png']);
+% saveas(fig,[Savefolder,'Figure4F_alphastim_alpha_frequency_change_time.png']);
 
 
 %% Time course - Alphastim - theta freq - Compare conditions using a lme 
@@ -689,7 +684,7 @@ title('4-7 Hz');
 
 
 % saveas(fig,[Savefolder,'Figure4F_alphastim_theta_frequency_change_time.svg']);
-saveas(fig,[Savefolder,'Figure4F_alphastim_theta_frequency_change_time.png']);
+% saveas(fig,[Savefolder,'Figure4F_alphastim_theta_frequency_change_time.png']);
 
 
 %% Time course - Thetastim - alpha freq - Compare conditions using a lme 
@@ -822,7 +817,7 @@ title('7-12 Hz');
 
 
 % saveas(fig,[Savefolder,'Figure4L_thetastim_alpha_frequency_change_time.svg']);
-saveas(fig,[Savefolder,'Figure4L_thetastim_alpha_frequency_change_time.png']);
+% saveas(fig,[Savefolder,'Figure4L_thetastim_alpha_frequency_change_time.png']);
 
 
 %% Time course - Thetastim - theta freq - Compare conditions using a lme 
@@ -954,7 +949,7 @@ yline(-1.3,'LineWidth',2);
 title('4-7 Hz');
 
 % saveas(fig,[Savefolder,'Figure4L_thetastim_theta_frequency_change_time.svg']);
-saveas(fig,[Savefolder,'Figure4L_thetastim_theta_frequency_change_time.png']);
+% saveas(fig,[Savefolder,'Figure4L_thetastim_theta_frequency_change_time.png']);
 
 
 

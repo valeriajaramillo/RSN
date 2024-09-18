@@ -1,17 +1,17 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('/users/nemo/software/DataViz'));  % Dataviz toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/ntrials_vol/ERP_ntrials_allsub_13-Jun-2024.mat')
-load('/parallel_scratch/nemo/RSN/analysis/analysis/ntrials_vol/nm_ntrials_allsub_12-Jun-2024.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures/Figure1D_ERP_ntrials_allsub_13-Jun-2024.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures/Figure1D_nm_ntrials_allsub_12-Jun-2024.mat')
 
 incl_sub = setdiff(1:19,12);
 
 bins = {'All' '1st third' '2nd third' '3rd third'};
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %%
 

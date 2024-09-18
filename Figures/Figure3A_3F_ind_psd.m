@@ -1,13 +1,13 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Scripts\RSN'));  % contains distinguishable colors function, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Scripts\RSN'));  % contains distinguishable colors function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub_mICA_avref_12-Mar-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_Figure3A_Figure4A_psd_allsub_mICA_avref_12-Mar-2023.mat');
 
 incl_sub = setdiff(1:19,12);
 
@@ -173,7 +173,7 @@ colors = distinguishable_colors(18);
   xline(7.5,'LineWidth',1,'LineStyle','--')
   xline(12.5,'LineWidth',1,'LineStyle','--')
   
-saveas(fig,[Savefolder,'Figure3A_Ind_spectrum_alpha.svg']);  
+% saveas(fig,[Savefolder,'Figure3A_Ind_spectrum_alpha.svg']);  
   
 %% hdEEG - Theta
 
@@ -310,5 +310,5 @@ colors = distinguishable_colors(18);
   xline(7.5,'LineWidth',1,'LineStyle','--')
 %   xline(12.5,'LineWidth',1,'LineStyle','--')
   
-  saveas(fig,[Savefolder,'Figure3B_Ind_spectrum_theta.svg']);  
+%   saveas(fig,[Savefolder,'Figure3B_Ind_spectrum_theta.svg']);  
   

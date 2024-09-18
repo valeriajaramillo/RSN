@@ -1,19 +1,19 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab'));
-addpath(genpath('/users/nemo/projects/RSN'));
-addpath(genpath('/users/nemo/software/Henry/useful_functions'));
-addpath(genpath('/users/nemo/software/colorGradient'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+% addpath(genpath('/users/nemo/projects/RSN'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\colorGradient'));
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 incl_sub = setdiff(1:19,[9 12 14]); % 14 excluded because no phasic trials, 9 because no wake eve trials
 
 
 %% ERP phase bins - REM
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_allsub_REM_mICA_avref04-Jun-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_ERP_allsub_REM_mICA_avref04-Jun-2023.mat');
 ERP = ERP_all;
 
 state = 1; % 1 = tonic, 2 = phasic
@@ -62,7 +62,7 @@ clear ERP
 
 %% ERP phase bins - wake
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_allsub_wake_mICA_avref02-Jun-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_ERP_allsub_wake_mICA_avref02-Jun-2023.mat');
 ERP = ERP_all;
 
 state = 1; % 1 = eyes open, 2 = eyes closed
@@ -273,7 +273,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 % tileplot.Padding = 'compact';
 
 % Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta.svg']);
 
 
 %% check non-uniformity across circle - REM
@@ -463,7 +463,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 
 
 % Savefolder = '/vol/research/nemo/datasets/RSN/data/analysis/Figures/';
-saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta_phase.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta_phase.svg']);
 
 
 %% check non-uniformity across circle for bins - REM
@@ -698,7 +698,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 % set(gca,'Fontsize',15,'TickDir','out','LineWidth',2);
 % title('');
 
-saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta_regression.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure23_ERP_phase_reset_theta_regression.svg']);
 
 
 

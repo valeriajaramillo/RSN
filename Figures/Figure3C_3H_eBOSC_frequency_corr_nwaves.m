@@ -3,10 +3,10 @@ close all;
 
 %%
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/oscillation_detection/Oscillation_Freq_ISI_allsub_d03_08-Feb-2024.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure3C_Oscillation_Freq_ISI_allsub_d03_08-Feb-2024.mat');
 close
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
 
 %%
 incl_sub = setdiff(1:19,[12]);
@@ -118,7 +118,7 @@ slope_SE_theta = mdl_theta.Coefficients(2,2)
     legend off
 
 
-    saveas(fig,[Savefolder,'Figure3H_corr_REM_theta_oscillations_ISI_Theta_',num2str(lower_freq_theta),'_',num2str(higher_freq_theta),'.svg']);
+%     saveas(fig,[Savefolder,'Figure3H_corr_REM_theta_oscillations_ISI_Theta_',num2str(lower_freq_theta),'_',num2str(higher_freq_theta),'.svg']);
 
 %% number of waves
 

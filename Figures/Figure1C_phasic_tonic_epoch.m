@@ -1,21 +1,14 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eBOSC'));  % eBOSC toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eBOSC'));  % eBOSC toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ISI_echt_psd_allsub_14-Mar-2023.mat')
+Folderpath = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
+sub_Folderpath = dir([Folderpath,'Figure1C_RSN_001*']);
 
-% Folderpath = 'S:\datasets\RSN\data\hdEEG\';
-% sub_Folderpath = dir([Folderpath,'RSN*']);
-% 
-% waves_folder = 'S:\datasets\RSN\data\analysis\oscillation_detection';
-
-Folderpath = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
-sub_Folderpath = dir([Folderpath,'RSN*']);
-
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
 
 %% Average across on and off blocks and calculate change
 lower_freq_alpha = 7.5;
@@ -38,9 +31,6 @@ load([Folderpath,sub_Folderpath(s).name,filesep,goodREM_file(1).name]);
     
 nm_good_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_nm_good.mat']);
 load([Folderpath,sub_Folderpath(s).name,filesep,nm_good_file(1).name]); 
-
-% waves_file = dir([waves_folder,sub_Folderpath(s).name,'*_eBOSC_waves.mat']);
-% load([waves_folder,waves_file(1).name])
 
 waves_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_eBOSC_waves.mat']);
 load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
@@ -684,7 +674,7 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     tileplot.TileSpacing = 'compact';
     tileplot.Padding = 'compact';
     
-    saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch.svg']);
+%     saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch.svg']);
     
 
 %%%%%%%%%%%%%%%%%%%%% With axis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1315,5 +1305,5 @@ load([Folderpath,sub_Folderpath(s).name,filesep,waves_file(1).name])
     tileplot.Padding = 'compact';
     
     
-    saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch_axes.svg']);
+%     saveas(fig,[Savefolder,'Figure1C_phasic_tonic_epoch_axes.svg']);
 

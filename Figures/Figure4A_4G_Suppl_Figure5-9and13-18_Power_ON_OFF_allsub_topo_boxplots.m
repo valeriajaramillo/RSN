@@ -1,20 +1,21 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
-addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
 % Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
 % sub_Folderpath = dir([Folderpath,'RSN*']);
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub_mICA_avref_12-Mar-2023.mat');
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_Figure3A_Figure4A_psd_allsub_mICA_avref_12-Mar-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
 
-statsresult_path = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\psd_allsub\statsresult\';
+statsresult_path = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4A_psd_allsub\statsresult\';
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Average across on and off blocks and calculate change
 
@@ -181,7 +182,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure5_alphastim_topo_lme_condition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure5_alphastim_topo_lme_condition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 
@@ -242,7 +243,7 @@ axis off
 axis square
 title([band_name{band}])  
 
-saveas(gcf,[Savefolder,'Figure4A_alphastim_topo_lme_condition_',num2str(band_freq(band,1)),'_',num2str(band_freq(band,2)),'Hz_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4A_alphastim_topo_lme_condition_',num2str(band_freq(band,1)),'_',num2str(band_freq(band,2)),'Hz_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 % end
 
@@ -312,7 +313,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure6_alphastim_topo_lme_substage_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure6_alphastim_topo_lme_substage_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% power change clusters
@@ -393,7 +394,7 @@ xtickangle(45);
 box off
 axis square
 
-saveas(gcf,[Savefolder,'Suppl_Figure8_alphastim_lme_substage_cluster_2_3Hz_3_4Hz','.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure8_alphastim_lme_substage_cluster_2_3Hz_3_4Hz','.svg']);
 
 %% Alpha stim - topo lme condition*substage
 
@@ -456,7 +457,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure7_alphastim_topo_lme_substagecondition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure7_alphastim_topo_lme_substagecondition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %% Theta stim - Topo lme condition - all bins
 
@@ -523,7 +524,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure12_thetastim_topo_lme_condition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure12_thetastim_topo_lme_condition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Theta stim - Topo lme condition - significant bins
@@ -585,7 +586,7 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4G_thetastim_topo_lme_condition_',num2str(band_freq(band,1)),'_',num2str(band_freq(band,2)),'Hz_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4G_thetastim_topo_lme_condition_',num2str(band_freq(band,1)),'_',num2str(band_freq(band,2)),'Hz_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 % end
 
@@ -653,7 +654,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure13_thetastim_topo_lme_substage_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure13_thetastim_topo_lme_substage_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% power change clusters
@@ -844,7 +845,7 @@ xtickangle(45);
 box off
 axis square
 
-saveas(gcf,[Savefolder,'Suppl_Figure15_thetastim_lme_substage_cluster_2_3_4_5_6_12_Hz','.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure15_thetastim_lme_substage_cluster_2_3_4_5_6_12_Hz','.svg']);
 
 
 %% Theta stim - Topo lme condition*substage
@@ -908,7 +909,7 @@ title([band_name{band}])
 
 end
 
-saveas(gcf,[Savefolder,'Suppl_Figure14_thetastim_topo_lme_substagecondition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure14_thetastim_topo_lme_substagecondition_1Hzbands_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% power change clusters
@@ -970,7 +971,7 @@ box off
 axis square
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure16_thetastim_lme_substagecondition_cluster_phasic_',band_name{band},'.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure16_thetastim_lme_substagecondition_cluster_phasic_',band_name{band},'.svg']);
 
 
 %% Alpha stimulation - t-test ON vs OFF 
@@ -1063,7 +1064,7 @@ clear V
 
         end
     
-        saveas(gcf,[Savefolder,'Suppl_Figure9_alphastim_on_vs_off_topo.svg'])
+%         saveas(gcf,[Savefolder,'Suppl_Figure9_alphastim_on_vs_off_topo.svg'])
     
 %     end
   
@@ -1154,7 +1155,7 @@ clear V
 
         end
     
-        saveas(gcf,[Savefolder,'Suppl_Figure17_thetastim_on_vs_off_topo.svg'])
+%         saveas(gcf,[Savefolder,'Suppl_Figure17_thetastim_on_vs_off_topo.svg'])
     
 %     end
 

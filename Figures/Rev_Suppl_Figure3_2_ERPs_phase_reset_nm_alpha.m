@@ -1,12 +1,12 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab'));
-addpath(genpath('/users/nemo/projects/RSN'));
-addpath(genpath('/users/nemo/software/Henry/useful_functions'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+% addpath(genpath('/users/nemo/projects/RSN'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 % addpath(genpath('/user/HS301/m17462/matlab/colorGradient'));
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 % incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because no wake eve trials
 incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because no wake eve trials
@@ -15,7 +15,7 @@ incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because
 %% ERP phase bins - REM
 
 % load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_nm_allsub_REM_mICA_avref09-Feb-2024.mat');
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_nm_broadband_allsub_REM_mICA_avref07-Jun-2024.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Rev_Suppl_Figure3_2_ERP_nm_broadband_allsub_REM_mICA_avref07-Jun-2024.mat');
 
 %% plot alpha ERP - averaged across triggers
 
@@ -79,9 +79,9 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 
 % end
 
-saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm.svg']);
 
-%% plot alpha ERP - averaged across first 10 triggers - alphafilt
+%% plot alpha ERP - averaged across triggers - alphafilt
 
 t = (-dt*fs:dt*fs-1)/fs*1000; % time in ms
 
@@ -121,79 +121,6 @@ xtickangle(0)
 set(groot,'defaultAxesXTickLabelRotationMode','manual')
 
 % end
-saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_alphafilt.svg']);
-
-
-%% check non-uniformity across circle - alphafilt
-
-fig = figure('Renderer','painters','units','normalized','outerposition',[0 0 1 1])
-
-trig = 1;
-
-for samp = 1:size(ERP_nm_all.trial_data_alphafilt_phase,4)
-        
-    mean_phase_allcon_REM = reshape(ERP_nm_all.trial_data_alphafilt_phase(incl_sub,1:4,trig,samp),[length(incl_sub)*4 1]);
-    resultant_phase_allcon_REM = reshape(ERP_nm_all.trial_data_alphafilt_phase_r(incl_sub,1:4,trig,samp),[length(incl_sub)*4 1]);
-    
-    mean_phase_allcon_REM(isnan(mean_phase_allcon_REM))= [];
-    resultant_phase_allcon_REM(resultant_phase_allcon_REM == 0)= [];
-    
-    [p_val_REM(samp) z_val_REM(samp)] = circ_rtest(mean_phase_allcon_REM,resultant_phase_allcon_REM);
-    
-end
-
-
-
-% plot alpha ERP phase
-
-t = (-dt*fs:dt*fs-1)/fs*1000; % time in ms
-
-colors = linspecer(4);
-
-
-% tileplot = tiledlayout(1,4);
-% 
-% nexttile(1)
-
-% subplot(2,5,trig)    
-    
-for con = 1:4
-% plot(t,squeeze(nanmean(ERP_nm_all.trial_data(:,con,trig,:),1)),'Color',colors(con,:))
-incl_sub2 = find(~isnan(squeeze(ERP_nm_all.trial_data_alphafilt_phase(:,con,trig,1))) == 1);
-incl_sub3 = intersect(incl_sub,incl_sub2);
-plot(t,squeeze(circ_mean(ERP_nm_all.trial_data_alphafilt_phase(incl_sub3,con,trig,:))),'Color',colors(con,:))
-hold on
-% sig_samps = find(p_val_REM < 0.05);
-% plot(t(sig_samps),ones(length(sig_samps),1)*3.5,'*','Color','k');
-% hold on
-end
-
-hold on
-% plot(t,squeeze(circ_mean(nanmean(ERP_nm_all.trial_data_alphafilt_phase(incl_sub,1:4,trig,:),2))),'Color','k','LineWidth',3)
-xline(0,'LineStyle','--','LineWidth',2);
-
-xlim([-500 500]);
-xlabel('Time (ms)')
-ylabel('Phase (radians)')
-set(gca,'Fontsize',15,'TickDir','out','LineWidth',2);
-box off
-axis square
-% legend({'Peak' 'Falling' 'Trough' 'Rising'});
-legend off
-ylim([-4 4]);
-yticks([-pi:pi:pi]);
-yticklabels({'-\pi' '0' '\pi'})
-xticks(-200:200:1000);
-title(['Stimulus ',num2str(trig)]);
-
-clear p_val_REM z_val_REM
-% end
-
-% saveas(fig,[Savefolder,'Figure6_ERP_alpha_nm_alphafilt_phase.svg']);
-
-
-
-
-
+% saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_alphafilt.svg']);
 
 

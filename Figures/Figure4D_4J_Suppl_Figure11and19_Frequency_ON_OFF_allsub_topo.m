@@ -1,15 +1,15 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
-addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
 % load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\freqalphatheta_allsub_23-Jan-2024');
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Average across on and off blocks and calculate change
 
@@ -104,7 +104,7 @@ close all
 
 band = 1;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -147,13 +147,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -195,13 +195,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4D_alphastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %% Alpha stim - Topo lme substage
 
 band = 1;%:15
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
   
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -244,13 +244,13 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2;%:15
     
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -294,13 +294,13 @@ axis square
 title([band_name{band}])    
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Alpha stim - Topo lme condition*substage
 
 band = 1; %:15
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -343,13 +343,13 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2; %:15
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_alphastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -392,14 +392,14 @@ axis off
 axis square
 title([band_name{band}])    
 
-saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure10_alphastim_topo_lme_substagecondition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Theta stim - Topo lme condition
 
 band = 1;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
  
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -442,13 +442,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -491,13 +491,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure4J_thetastim_topo_lme_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %% Theta stim - Topo lme substage
 
 band = 1;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -540,13 +540,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
 
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -589,14 +589,14 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 
 %% Theta stim - Topo lme substage *condition
 
 band = 1;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_alphafreq.mat')
     
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -639,13 +639,13 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_alphaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 
 %%
 
 band = 2;
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4D_frequency_allsub\statsresult\statsresult_thetastim_thetafreq.mat')
    
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.5 0.5])
 
@@ -688,5 +688,5 @@ axis off
 axis square
 title([band_name{band}])   
 
-saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure18_thetastim_topo_lme_substage_condition_thetaband_N',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 

@@ -1,23 +1,23 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
-addpath(genpath('S:\projects\RSN\matlab\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\DataViz'));  % Dataviz toolbox, see README on where to find this
 
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\connectivity_allsub_07-Dec-2023.mat');
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Suppl_Figure12_20_connectivity_allsub_07-Dec-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
 
 band_name = {'1-4 Hz' '4-7 Hz' '7-12 Hz' '13-30 Hz' '8-12 Hz'};
 
 conditions = {'Peak'; 'Falling'; 'Trough'; 'Rising';
     'Peak'; 'Falling'; 'Trough'; 'Rising';}
 
-statsresult_folder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\connectivity_allsub\statsresult_sensor\';
+statsresult_folder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Suppl_Figure12_20_connectivity_allsub\statsresult_sensor\';
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% topoplot layout 
 
@@ -152,7 +152,7 @@ axis off
 axis square
 title(['PLV'])  
 
-saveas(gcf,[Savefolder,'Suppl_Figure11_lme_alphastim_PLV_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
+% saveas(gcf,[Savefolder,'Suppl_Figure11_lme_alphastim_PLV_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
 
     end
 
@@ -277,7 +277,7 @@ end
 tileplot.TileSpacing = 'tight';
 tileplot.Padding = 'compact';
 
-saveas(gcf,[Savefolder,'Suppl_Figure11_ttest_frontalseeds_',band_name{band1},'-',band_name{band2},'allch_alpha_dots_PLV.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure11_ttest_frontalseeds_',band_name{band1},'-',band_name{band2},'allch_alpha_dots_PLV.svg']);
 
     end
 
@@ -342,7 +342,7 @@ axis off
 axis square
 title(['PLI'])  
 
-saveas(gcf,[Savefolder,'Suppl_Figure11_lme_alphastim_PLI_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
+% saveas(gcf,[Savefolder,'Suppl_Figure11_lme_alphastim_PLI_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
 
     end
 
@@ -406,7 +406,7 @@ axis off
 axis square
 title(['PLV'])  
 
-saveas(gcf,[Savefolder,'Suppl_Figure19_lme_thetastim_PLV_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
+% saveas(gcf,[Savefolder,'Suppl_Figure19_lme_thetastim_PLV_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
 
     end
 
@@ -470,7 +470,7 @@ axis off
 axis square
 title(['PLI'])  
 
-saveas(gcf,[Savefolder,'Suppl_Figure19_lme_thetastim_PLI_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
+% saveas(gcf,[Savefolder,'Suppl_Figure19_lme_thetastim_PLI_frontalseeds_',band_name{band1},'-',band_name{band2},'.svg'])
 
     end
 
@@ -564,7 +564,7 @@ box off
 axis square
 ylim([-10 10]);
 
-saveas(gcf,[Savefolder,'Suppl_Figure11_Connectivity_boxplot_alphastim_',band_name{band1},'-',band_name{band2},'.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure11_Connectivity_boxplot_alphastim_',band_name{band1},'-',band_name{band2},'.svg']);
 
 
 for s = 1:19

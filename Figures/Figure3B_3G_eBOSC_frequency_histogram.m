@@ -1,20 +1,20 @@
 clear all;
 close all;
 
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\eBOSC'));  % eBOSC toolbox, see README on where to find this
-addpath(genpath('\\surrey.ac.uk\personal\hs301\m17462\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eBOSC'));  % eBOSC toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
 % Folderpath = '/vol/research/nemo/datasets/RSN/data/hdEEG/';
 % sub_Folderpath = dir([Folderpath,'RSN*']);
 % 
 % waves_folder = '/vol/research/nemo/datasets/RSN/data/analysis/oscillation_detection/';
 
-Folderpath = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\RSN_002\';
+Folderpath = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure3B_RSN_002\';
 
-Savefolder = 'D:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\';
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\ISI_echt_psd_allsub_14-Mar-2023.mat')
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure3B_ISI_echt_psd_allsub_14-Mar-2023.mat')
 
 
 %% Average across on and off blocks and calculate change
@@ -25,7 +25,7 @@ higher_freq_theta = 7.5;
 
 %%
 
-% s = 2; %1:length(sub_Folderpath)   
+s = 2; %1:length(sub_Folderpath)   
     
 % goodREM_file = dir([Folderpath,sub_Folderpath(s).name,filesep,'*_sleep*_fil_czref_goodREM.mat']);
 % load([Folderpath,sub_Folderpath(s).name,filesep,goodREM_file(1).name]);
@@ -241,8 +241,7 @@ xticks(0:2:14);
 xlabel('Frequency (Hz)');
 ylabel('Number')
  
-% saveas(fig,[Savefolder,'Figure3B_',sub_Folderpath(s).name,'_alphastim_freq_findpeaks.svg']);
-saveas(fig,[Savefolder,'Figure3B_example_alphastim_freq_findpeaks.svg']);
+% saveas(fig,[Savefolder,'Figure3B_example_alphastim_freq_findpeaks.svg']);
 
 %% Theta stim frequency histogram - findpeaks
 
@@ -336,7 +335,6 @@ xticks(0:2:14);
 xlabel('Frequency (Hz)');
 ylabel('Number')
  
-% saveas(fig,[Savefolder,'Figure3_',sub_Folderpath(s).name,'_thetastim_freq_findpeaks.svg']);
-saveas(fig,[Savefolder,'Figure3G_example_thetastim_freq_findpeaks.svg']);
+% saveas(fig,[Savefolder,'Figure3G_example_thetastim_freq_findpeaks.svg']);
 
 

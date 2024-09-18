@@ -1,20 +1,20 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
-addpath(genpath('/users/nemo/software/colorGradient'));  % colorGradient function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\colorGradient'));  % colorGradient function, see README on where to find this
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/psd_allsub_mICA_avref_12-Mar-2023.mat');
-load('/parallel_scratch/nemo/RSN/analysis/analysis/power_allsub/power_allsub_mICA_avref_09-Mar-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_Figure3A_Figure4A_psd_allsub_mICA_avref_12-Mar-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_power_allsub_mICA_avref_09-Mar-2023.mat');
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_allsub_REM_mICA_avref04-Jun-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_ERP_allsub_REM_mICA_avref04-Jun-2023.mat');
 ERP_REM = ERP_all;
 clear ERP_all
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_allsub_wake_mICA_avref02-Jun-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_ERP_allsub_wake_mICA_avref02-Jun-2023.mat');
 ERP_wake = ERP_all;
 clear ERP_all
 
@@ -269,7 +269,7 @@ sig_bins_wake = find(p_psd_wake_state <= 0.05);
 plot(f(sig_bins_wake),ones(length(sig_bins_wake),1)*-0.2,'*','Color','k');
 
 
-saveas(fig,[Savefolder,'Figure2A_psd_EO_EC_',num2str(ch),'.svg']);
+% saveas(fig,[Savefolder,'Figure2A_psd_EO_EC_',num2str(ch),'.svg']);
 
 
 %% PSD phasic, tonic off
@@ -302,7 +302,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 sig_bins_REM = find(p_psd_rem_state <= 0.05);
 plot(f(sig_bins_REM),ones(length(sig_bins_REM),1)*-0.2,'*','Color','k');
 
-saveas(fig,[Savefolder,'Figure2B_psd_phasic_tonic_',num2str(ch),'.svg']);
+% saveas(fig,[Savefolder,'Figure2B_psd_phasic_tonic_',num2str(ch),'.svg']);
 
 
 %% Compare EO vs EC
@@ -382,7 +382,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 sig_bins_ttest = find(p_ERP_wake_state <= 0.05);
 plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
-saveas(fig,[Savefolder,'Figure2C_ERP_EOEC_notmatched.svg']);
+% saveas(fig,[Savefolder,'Figure2C_ERP_EOEC_notmatched.svg']);
 
 
 %% Compare phasic vs tonic (not matched)
@@ -454,7 +454,7 @@ plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
 sig_times = t(sig_bins_ttest)
 
-saveas(fig,[Savefolder,'Figure2D_ERP_phasictonic_notmatched.svg']);
+% saveas(fig,[Savefolder,'Figure2D_ERP_phasictonic_notmatched.svg']);
 
 
 %% Compare phasic vs tonic (matched)
@@ -534,7 +534,7 @@ end_diff(d) = t(sig_bins_ttest(diff_ndx(d)));
 
 end
 
-saveas(fig,[Savefolder,'Suppl_Figure2A_ERP_phasictonic_matched.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2A_ERP_phasictonic_matched.svg']);
 
 
 %% Compare eve vs mor
@@ -615,7 +615,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual');
 sig_bins_ttest = find(p_ERP_wake_evemor <= 0.05);
 plot(t(sig_bins_ttest),ones(length(sig_bins_ttest),1)*-2.5,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2B_ERP_evemor_notmatched.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2B_ERP_evemor_notmatched.svg']);
 
 
 %% Compare tonic volumes using a lme (not matched)
@@ -677,7 +677,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual');
 sig_bins_lme = find(p_vol_tonic <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_tonic_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_tonic_vol.svg']);
 
 %% Compare phasic volumes using a lme (not matched)
 
@@ -739,7 +739,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual');
 sig_bins_lme = find(p_vol_phasic <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_phasic_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_phasic_vol.svg']);
 
 
 
@@ -800,7 +800,7 @@ xtickangle(0)
 sig_bins_lme = find(p_vol_wake_e_EC <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_e_EC_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_e_EC_vol.svg']);
 
 %% Compare wake eve EO volumes using a lme (not matched)
 
@@ -858,7 +858,7 @@ xtickangle(0)
 sig_bins_lme = find(p_vol_wake_e_EO <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_e_EO_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_e_EO_vol.svg']);
 
 
 %% Compare wake mor EC volumes using a lme (not matched)
@@ -917,7 +917,7 @@ xtickangle(0)
 sig_bins_lme = find(p_vol_wake_m_EC <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_m_EC_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_m_EC_vol.svg']);
 
 %% Compare wake mor EO volumes using a lme (not matched)
 
@@ -975,7 +975,7 @@ xtickangle(0)
 sig_bins_lme = find(p_vol_wake_m_EO <= 0.05);
 plot(t(sig_bins_lme),ones(length(sig_bins_lme),1)*-3.75,'*','Color','k');
 
-saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_m_EO_vol.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure2C_ERP_wake_m_EO_vol.svg']);
 
 
 

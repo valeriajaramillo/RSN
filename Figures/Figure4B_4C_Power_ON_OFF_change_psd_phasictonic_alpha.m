@@ -1,27 +1,27 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/psd_allsub_mICA_avref_12-Mar-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure2_Figure3A_Figure4A_psd_allsub_mICA_avref_12-Mar-2023.mat');
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 
 %%
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_alpha_7-8 Hz.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4A_psd_allsub\statsresult\statsresult_alpha_7-8 Hz.mat');
 alpha_cluster_el1 = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_alpha_10-11 Hz.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4A_psd_allsub\statsresult\statsresult_alpha_10-11 Hz.mat');
 alpha_cluster_el2 = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
 alpha_cluster_combined = unique([alpha_cluster_el1,alpha_cluster_el2]);
 
-load('/parallel_scratch/nemo/RSN/analysis/analysis/psd_allsub/statsresult/statsresult_theta_7-8 Hz.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure4A_psd_allsub\statsresult\statsresult_theta_7-8 Hz.mat');
 theta_cluster_el = statsresult.WhichCh_1_max_condition; 
 clear statsresult
 
@@ -249,7 +249,7 @@ yline(-26,'LineWidth',2);
 box off
 axis square
 
-saveas(fig,[Savefolder,'Figure4B_psd_change_alpha_ttest_statsresult_cluster.svg']);
+% saveas(fig,[Savefolder,'Figure4B_psd_change_alpha_ttest_statsresult_cluster.svg']);
 
 %% Plot normalized power spectrum ON-OFF change for Alpha stimulation
 
@@ -309,5 +309,5 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 box off
 axis square
 
-saveas(fig,[Savefolder,'Figure4C_npsd_change_alpha_ttest_statsresult_cluster.svg']);
+% saveas(fig,[Savefolder,'Figure4C_npsd_change_alpha_ttest_statsresult_cluster.svg']);
 

@@ -1,12 +1,12 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab'));
-addpath(genpath('/users/nemo/projects/RSN'));
-addpath(genpath('/users/nemo/software/Henry/useful_functions'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+% addpath(genpath('/users/nemo/projects/RSN'));
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 % addpath(genpath('/user/HS301/m17462/matlab/colorGradient'));
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 % incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because no wake eve trials
 incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because no wake eve trials
@@ -15,7 +15,7 @@ incl_sub = setdiff(1:19,[12]); % 14 excluded because no phasic trials, 9 because
 %% ERP phase bins - REM
 
 % load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_nm_allsub_REM_mICA_avref09-Feb-2024.mat');
-load('/parallel_scratch/nemo/RSN/analysis/analysis/erp_allsub/ERP_nm_broadband_allsub_REM_mICA_avref07-Jun-2024.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Rev_Suppl_Figure3_2_ERP_nm_broadband_allsub_REM_mICA_avref07-Jun-2024.mat');
 
 %% plot alpha ERP - averaged across triggers
 
@@ -79,7 +79,7 @@ set(groot,'defaultAxesXTickLabelRotationMode','manual')
 
 % end
 
-saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_thetastim.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_thetastim.svg']);
 
 %% plot alpha ERP - averaged across first 10 triggers - alphafilt
 
@@ -121,6 +121,6 @@ xtickangle(0)
 set(groot,'defaultAxesXTickLabelRotationMode','manual')
 
 % end
-saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_thetastim_thetafilt.svg']);
+% saveas(fig,[Savefolder,'Suppl_Figure4_ERP_nm_thetastim_thetafilt.svg']);
 
 

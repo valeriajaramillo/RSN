@@ -1,19 +1,19 @@
 clear all;
 close all;
 
-addpath(genpath('/users/nemo/software/eeglab')); % eeglab toolbox, see README on where to find this
-addpath(genpath('/users/nemo/software/Henry/useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\eeglab')); % eeglab toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\Henry\useful_functions')); % contains linspecer function, circular statistics toolbox functions, echt function, shadedErrorBar function, see README on where to find this
 
-addpath(genpath('/users/nemo/software/ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
+addpath(genpath('F:\Valeria\m17462\bigdata\matlab\ScientificColourMaps7')); % ScientificColourMaps toolbox, see README on where to find this
 
-Savefolder = '/parallel_scratch/nemo/RSN/analysis/analysis/Figures/';
+Savefolder = 'F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figures\';
 
 %% Load file
 
-load('D:\Valeria\RSN\data\for_sharing\data_to_make_figures\phase_allsub_mICA_avref_alphathetafilt03-Aug-2023.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\Figure3D_3E_phase_allsub_mICA_avref_alphathetafilt03-Aug-2023.mat');
 % load('/parallel_scratch/nemo/RSN/analysis/analysis/phase_allsub/phase_allsub_mICA_avref_alphathetafilt_notecht_19-Jun-2024.mat');
 
-load('/users/nemo/projects/RSN/git/RSN/preprocessing/sleep/chans.mat');
+load('F:\Valeria\RSN\data\for_sharing\data_to_make_figures\chans.mat');
 
 condition = {'Alpha Phase 0' 'Alpha Phase 90' 'Alpha Phase 180' 'Alpha Phase 270' ...
     'Theta Phase 0' 'Theta Phase 90' 'Theta Phase 180' 'Theta Phase 270'};
@@ -103,7 +103,7 @@ incl_sub = setdiff(1:19,[12]);
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.8 0.8])
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),nanmean(nanmean(r_alphafilt(incl_sub,:,1:4),1),3),'mask',layout2.mask,'outline',layout2.outline, ...
-    'interplim','mask','clim',[0 0.37],'gridscale',300);
+    'interplim','mask','clim',[0 0.8],'gridscale',300);
 hold on
 
 for con = 1:4
@@ -138,7 +138,7 @@ scatter(layout2.pos(2,1),layout2.pos(2,2),200,[0.6350 0.0780 0.1840],'x','LineWi
 hold on
 scatter(layout2.pos(sig_ch,1),layout2.pos(sig_ch,2),50,[0.9098 0.4588 0.4275],'o','filled','LineWidth',2);
 
-saveas(gcf,[Savefolder,'Figure3E_alphastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure3E_alphastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 % saveas(gcf,[Savefolder,'Figure3E_alphastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar_notecht.svg']);
 
 clear sig_ch
@@ -158,7 +158,7 @@ incl_sub = setdiff(1:19,[12]);
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.8 0.8])
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),nanmean(nanmean(r_alphafilt(incl_sub,:,5:8),1),3),'mask',layout2.mask,'outline',layout2.outline, ...
-    'interplim','mask','clim',[0 0.4],'gridscale',300);
+    'interplim','mask','clim',[0 0.8],'gridscale',300);
 hold on
 
 for con = 5:8
@@ -195,7 +195,7 @@ axis off
 axis square
 
 
-saveas(gcf,[Savefolder,'Suppl_Figure4D_thetastim_alphafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure4D_thetastim_alphafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 % saveas(gcf,[Savefolder,'Suppl_Figure4D_thetastim_alphafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar_notecht.svg']);
 
 
@@ -207,7 +207,7 @@ incl_sub = setdiff(1:19,[12]);
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.8 0.8])
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),nanmean(nanmean(r_thetafilt(incl_sub,:,5:8),1),3),'mask',layout2.mask,'outline',layout2.outline, ...
-    'interplim','mask','clim',[0 0.4],'gridscale',300);
+    'interplim','mask','clim',[0 0.8],'gridscale',300);
 hold on
 
 clear pval vval
@@ -253,7 +253,7 @@ std_dev_target_theta = rad2deg(circ_mean(std_dev_target(5:8,ch)))
 p_val_theta = pval(5:8,ch)
 v_val_theta = vval(5:8,ch)
 
-saveas(gcf,[Savefolder,'Figure3J_thetastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Figure3J_thetastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 % saveas(gcf,[Savefolder,'Figure3J_thetastim_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar_notecht.svg']);
 
 %% Alpha stim thetafilt 
@@ -261,7 +261,7 @@ saveas(gcf,[Savefolder,'Figure3J_thetastim_topo_phase_accuracy_',num2str(length(
 figure('Renderer','painters','units','normalized','outerposition',[0 0 0.8 0.8])
 
 ft_plot_topo(layout2.pos(:,1),layout2.pos(:,2),nanmean(nanmean(r_thetafilt(incl_sub,:,1:4),1),3),'mask',layout2.mask,'outline',layout2.outline, ...
-    'interplim','mask','clim',[0 0.37],'gridscale',300);
+    'interplim','mask','clim',[0 0.8],'gridscale',300);
 hold on
 
 clear pval vval
@@ -296,6 +296,6 @@ scatter(layout2.pos(sig_ch,1),layout2.pos(sig_ch,2),50,[0.9098 0.4588 0.4275],'o
 axis off
 axis square
 
-saveas(gcf,[Savefolder,'Suppl_Figure4B_alphastim_thetafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
+% saveas(gcf,[Savefolder,'Suppl_Figure4B_alphastim_thetafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar.svg']);
 % saveas(gcf,[Savefolder,'Suppl_Figure4B_alphastim_thetafilt_topo_phase_accuracy_',num2str(length(incl_sub)),'_lapaz_colorbar_notecht.svg']);
 
